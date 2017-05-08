@@ -27,7 +27,7 @@ while ( err > 0.8 & i<=N2) {
 modelmulti <- MuFicokm(formula = list(~1,~1),MuFidesign = Dsg, response = list(coeffsvd$legere[i,],coeffsvd$lourd[i,]),nlevel = level, covtype=cov.type, estim.method="LOO", control=list( trace=FALSE))
 # moyenne de prédication 
 presult[i,] <- coeffsvd$lourd[i,] + apply(matrix(1:N2),1,function(x) CrossValidationMuFicokmAll(modelmulti,x)$CVerrall)
-inter	<-	predict(object = modelmulti, xd, type = 'uk')
+inter	<-	predict(object = modelmulti, xd, type = 'uk', cov.compute=FALSE, se.compute=FALSE, light.return=TRUE)
 pcoeff[i,]	<- inter$mean
 pvar[i,]	<- inter$sd
 
@@ -55,8 +55,8 @@ Q2valSVD2FLF	<-	errorQ2temp( fpred( pcoeff[1:nb_optim,], basesvd[,1:nb_optim]), 
 ##################################################
 
 ## matrice résultat de prédiction et variance
-#pmean <- fpred(presult[1:nb_optim,],basesvd[,1:nb_optim])
-#pvar <- fpred(varesult[1:nb_optim,],basesvd[,1:nb_optim])
+pmean <- fpred(pcoeff[1:nb_optim,],basesvd[,1:nb_optim])
+varpred <- fpred(pvar[1:nb_optim,],basesvd[,1:nb_optim])
 
 
 ##################################################
