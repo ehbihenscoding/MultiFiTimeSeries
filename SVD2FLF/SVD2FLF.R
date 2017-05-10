@@ -13,6 +13,7 @@ basesvd = coefbase(Z1, coeffsvd$legere)
 cov.type<- "matern5_2"
 ### création des matrices de résultat!
 presult = matrix(0,N2,N2)
+pvarrsl = matrix(0,N2,N2)
 
 #### initialisation du paramètre d'itérarion
 i <- 1
@@ -25,6 +26,7 @@ while ( err > 0.8 & i<=N2) {
 modelmulti <- MuFicokm(formula = list(~1,~1),MuFidesign = Dsg, response = list(coeffsvd$legere[i,],coeffsvd$lourd[i,]),nlevel = level, covtype=cov.type, estim.method="LOO", control=list( trace=FALSE))
 # moyenne de prédication 
 presult[i,] <- coeffsvd$lourd[i,] + apply(matrix(1:N2),1,function(x) CrossValidationMuFicokmAll(modelmulti,x)$CVerrall)
+pvarrsl[i,]	<-	apply(matrix(1:N2),1,function(x) CrossValidationMuFicokmAll(modelmulti,x)$CVvarall)
 
 err <- errorQ2(presult[i,],coeffsvd$lourd[i,])
 #print(err)
@@ -51,9 +53,9 @@ Q2SVD2FLFoptim	<-	errorQ2temp( fpred(presult[1:nb_optim,],basesvd[,1:nb_optim]),
 ##################################################
 
 ## matrice résultat de prédiction et variance
-#pmean <- fpred(presult[1:nb_optim,],basesvd[,1:nb_optim])
-#pvar <- fpred(varesult[1:nb_optim,],basesvd[,1:nb_optim])
-
+pmean <- fpred(presult[1:nb_optim,],basesvd[,1:nb_optim])
+pvar	<-	fpred( pvarrsl[1:nb_optim,], basesvd[,1:nb_optim]^2)
+pvarortho	<- apply(fpred( coeffsvd$lourd[1:nb_optim,], basesvd[,1:nb_optim]) - Z2, 1, var)
 
 ##################################################
 ###################  Affichage ###################
@@ -63,4 +65,3 @@ Q2SVD2FLFoptim	<-	errorQ2temp( fpred(presult[1:nb_optim,],basesvd[,1:nb_optim]),
 #x11()
 #plot(t,Q2iteration[,1],type='l',ylim=c(min(Q2iteration),max(Q2iteration)))
 #claire(t,Q2iteration,N2)
-
