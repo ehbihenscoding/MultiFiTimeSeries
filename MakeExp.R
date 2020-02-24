@@ -25,21 +25,21 @@ foreach( experi = 1:Nb_exper, .combine = 'c', .packages=c('DiceDesign','MuFiCokr
 #	print(experi)
 	source('example/data.R')
 	source('SVD2FLF/SVD2FLF.R')
-	#locked <- flock::lock(lock)
+	locked <- flock::lock(lock)
 	Q2SVD2FLFstat[,experi] = Q2SVD2FLFoptim
-	#flock::unlock(locked)
+	flock::unlock(locked)
 	source('SVD2FHF/SVD2FHF.R')
-	#locked <- flock::lock(lock)
+	locked <- flock::lock(lock)
 	Q2SVD2FHFstat[,experi] = Q2SVD2FHFoptim
-	#flock::unlock(locked)
+	flock::unlock(locked)
 	source('TENSVD2F/TENSVD2F.R')
-	#locked <- flock::lock(lock)
+	locked <- flock::lock(lock)
 	Q2TENCOV2Fstat[,experi] = Q2TENSVD2Foptim
-	#flock::unlock(locked)
+	flock::unlock(locked)
 	source('SVD1F/SVD1F.r')
-	#locked <- flock::lock(lock)
+	locked <- flock::lock(lock)
 	Q2SVD1Fstat[,experi] = Q2iteration
-	#flock::unlock(locked)
+	flock::unlock(locked)
 }
 ###### Fin Parallelisation  #######
 parallel::stopCluster(c1)
