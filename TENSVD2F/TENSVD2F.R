@@ -22,7 +22,6 @@ Z2ortho = Z2 - fpred(coeffs$lourd[1:nb_iteration,], base[,1:nb_iteration]) #fpre
 #####################################################
 cov.type<- "matern5_2"
 
-#for( i in 1:nb_parametres){
 
 modelmulti <- MuFicokm(formula = list(~1,~1),MuFidesign = Dsg, response = list(coeffs$legere[nb_iteration,],coeffs$lourd[nb_iteration,]),nlevel = level, covtype=cov.type, estim.method="LOO", control=list( trace=FALSE))
 presult[nb_iteration,] <- predict( modelmulti, X2,  'UK')$mean + apply(matrix(1:N2),1,function(x) CrossValidationMuFicokmAll(modelmulti,x)$CVerrall) 
@@ -54,10 +53,10 @@ zD = dataapp + dataapportho
 Q2full[,nb_iteration] = errorQ2temp(zD, Z2)
 # actualisation de l'erreur
 errold	=	errnew
-errnew = mean(Q2full[,i])
+errnew = mean(Q2full[,nb_iteration])
 
 nb_iteration	=	nb_iteration +1
 }
-nb_optim <- max(nb_iteration-2,1)
+nb_optimTENCOV <- max(nb_iteration-2,1)
 
-Q2TENSVD2Foptim	<-	Q2full[,nb_optim]
+Q2TENSVD2Foptim	<-	Q2full[,nb_optimTENCOV]

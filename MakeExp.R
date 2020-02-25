@@ -5,7 +5,7 @@ source('example/Import.R')
 library(bigstatsr)
 
 # définition des paramètres de l'expérience
-Nb_exper = 40
+Nb_exper = 12
 Nt = 101
 # Initialisation parallelisation
 lock <- tempfile()
