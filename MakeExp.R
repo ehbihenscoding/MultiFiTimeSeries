@@ -1,8 +1,7 @@
-#setwd('~/Documents/These/Code/Signaux/Decomposition/Mean/optim/')
+setwd('~/Documents/These/Code/Signaux/Decomposition/Mean/optim/')
 #setwd('~/Rcode/optim/')
-setwd('~/ThËse/Travail/codage/MultifideliteTemporel/optim/')
+#setwd('~/ThËse/Travail/codage/MultifideliteTemporel/optim/')
 source('example/Import.R')
-library(bigstatsr)
 
 # d√©finition des param√®tres de l'exp√©rience
 Nb_exper = 40
@@ -20,29 +19,19 @@ registerDoSEQ()
 c1 <- parallel::makeCluster(12)
 doParallel::registerDoParallel(c1)
 
-foreach( experi = 1:Nb_exper, .combine = 'c', .packages=c('DiceDesign','MuFiCokriging')) %dopar%{
+for( experi in 1:Nb_exper){
 	source('example/Import.R')
-#	print(experi)
 	source('example/data.R')
 	source('SVD2FLF/SVD2FLF.R')
-	locked <- flock::lock(lock)
 	Q2SVD2FLFstat[,experi] = Q2SVD2FLFoptim
-	flock::unlock(locked)
 	source('SVD2FHF/SVD2FHF.R')
-	locked <- flock::lock(lock)
 	Q2SVD2FHFstat[,experi] = Q2SVD2FHFoptim
-	flock::unlock(locked)
 	source('TENSVD2F/TENSVD2F.R')
-	locked <- flock::lock(lock)
 	Q2TENCOV2Fstat[,experi] = Q2TENSVD2Foptim
-	flock::unlock(locked)
 	source('SVD1F/SVD1F.r')
-	locked <- flock::lock(lock)
 	Q2SVD1Fstat[,experi] = Q2iteration
-	flock::unlock(locked)
 }
 ###### Fin Parallelisation  #######
-parallel::stopCluster(c1)
 
 Q2SVD2FLFmean <- apply( Q2SVD2FLFstat[], 1, mean)
 Q2SVD2FHFmean <- apply( Q2SVD2FHFstat[], 1, mean)
