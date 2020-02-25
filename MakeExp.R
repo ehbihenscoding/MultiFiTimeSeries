@@ -1,6 +1,4 @@
-setwd('~/Documents/These/Code/Signaux/Decomposition/Mean/optim/')
-#setwd('~/Rcode/optim/')
-#setwd('~/Th�se/Travail/codage/MultifideliteTemporel/optim/')
+setwd('~/Rcode/optim/')
 source('example/Import.R')
 
 # définition des paramètres de l'expérience
@@ -9,15 +7,10 @@ Nt = 101
 # Initialisation parallelisation
 lock <- tempfile()
 # creations des matrices de Q2
-Q2SVD2FLFstat = FBM( Nt, Nb_exper)	#matrix( 0, Nt, Nb_exper)
-Q2SVD2FHFstat = FBM( Nt, Nb_exper)	#matrix( 0, Nt, Nb_exper)
-Q2TENCOV2Fstat = FBM( Nt, Nb_exper)	#matrix( 0, Nt, Nb_exper)
-Q2SVD1Fstat = FBM( Nt, Nb_exper)	#matrix( 0, Nt, Nb_exper)
-
-##### Parallelisation #######
-registerDoSEQ()
-c1 <- parallel::makeCluster(12)
-doParallel::registerDoParallel(c1)
+Q2SVD2FLFstat = matrix( 0, Nt, Nb_exper)
+Q2SVD2FHFstat = matrix( 0, Nt, Nb_exper)
+Q2TENCOV2Fstat = matrix( 0, Nt, Nb_exper)
+Q2SVD1Fstat = matrix( 0, Nt, Nb_exper)
 
 for( experi in 1:Nb_exper){
 	source('example/Import.R')
@@ -31,15 +24,12 @@ for( experi in 1:Nb_exper){
 	source('SVD1F/SVD1F.r')
 	Q2SVD1Fstat[,experi] = Q2iteration
 }
-###### Fin Parallelisation  #######
 
 Q2SVD2FLFmean <- apply( Q2SVD2FLFstat[], 1, mean)
 Q2SVD2FHFmean <- apply( Q2SVD2FHFstat[], 1, mean)
 Q2TENCOV2Fmean	<- apply( Q2TENCOV2Fstat[], 1, mean)
 Q2SVD1Fmean	<- apply( Q2SVD1Fstat[], 1, mean)
 
-#### Affichage
-x11();plot(t,Q2SVD2FHFmean,type='l',ylim=c(0.8,1))
-lines(t,Q2TENCOV2Fmean, col=2)
-lines(t,Q2SVD2FLFmean, col=3)
-lines( t, Q2SVD1Fmean, col=4)
+#### Export
+data = data.frame( t=t, Q2SVD2FLFmean=Q2SVD2FLFmean, Q2SVD2FHFmean=Q2SVD2FHFmean, Q2SVD1Fmean=Q2SVD1Fmean, Q2TENCOV2Fmean=Q2TENCOV2Fmean)
+write.csv(data, "~/outputs/exportQ2.csv")
