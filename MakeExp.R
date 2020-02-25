@@ -9,10 +9,10 @@ Nt = 101
 # Initialisation parallelisation
 lock <- tempfile()
 # creations des matrices de Q2
-Q2SVD2FLFstat = FBM( Nt, Nb_exper)	#matrix( 0, Nt, Nb_exper)
-Q2SVD2FHFstat = FBM( Nt, Nb_exper)	#matrix( 0, Nt, Nb_exper)
-Q2TENCOV2Fstat = FBM( Nt, Nb_exper)	#matrix( 0, Nt, Nb_exper)
-Q2SVD1Fstat = FBM( Nt, Nb_exper)	#matrix( 0, Nt, Nb_exper)
+Q2SVD2FLFstat = matrix( 0, Nt, Nb_exper)
+Q2SVD2FHFstat = matrix( 0, Nt, Nb_exper)
+Q2TENCOV2Fstat = matrix( 0, Nt, Nb_exper)
+Q2SVD1Fstat = matrix( 0, Nt, Nb_exper)
 
 ##### Parallelisation #######
 registerDoSEQ()
