@@ -5,7 +5,7 @@ source('example/Import.R')
 library(bigstatsr)
 
 # définition des paramètres de l'expérience
-Nb_exper = 12
+Nb_exper = 50
 Nt = 101
 # Initialisation parallelisation
 lock <- tempfile()
@@ -17,7 +17,7 @@ Q2SVD1Fstat = FBM( Nt, Nb_exper)	#matrix( 0, Nt, Nb_exper)
 
 ##### Parallelisation #######
 registerDoSEQ()
-c1 <- parallel::makeCluster(12)
+c1 <- parallel::makeCluster(10)
 doParallel::registerDoParallel(c1)
 
 foreach( experi = 1:Nb_exper, .combine = 'c', .packages=c('DiceDesign','MuFiCokriging')) %dopar%{

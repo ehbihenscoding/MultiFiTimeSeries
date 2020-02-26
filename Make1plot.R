@@ -19,4 +19,4 @@ claire(t,Z2ortho,N2)
 
 #### Affichage base basse fi
 x11();plot(t,base[,1],type='l',ylim=c(min(base),max(base)))
-claire(t,base,N2)
+claire(t,base,nb_optimTENCOV)
