@@ -7,6 +7,7 @@ Nt = 101
 
 source('example/Import.R')
 source('example/data.R')
+source('SVD2FLH/SVD2FLF.R')
 source('SVD2FHF/SVD2FHF.R')
 source('TENSVD2F/TENSVD2F.R')
 
@@ -18,5 +19,5 @@ x11();plot(t,Z2ortho[,1],type='l',ylim=c(min(Z2ortho),max(Z2ortho)))
 claire(t,Z2ortho,N2)
 
 #### Affichage base basse fi
-x11();plot(t,base[,1],type='l',ylim=c(min(efbase),max(efbase)))
+x11();plot(t,base[,1],type='l',ylim=c(min(base),max(base)))
 claire(t,base,N2)
