@@ -45,7 +45,7 @@ lc=tempOpt$par
 # prÃ©diction
 dataapportho = matrix(0,length(t),N2)
 for (ind in 1:N2){
-        p <- predKmFonc( X, Y, X2[ind,], lc)
+        p <- predKmFonc( X[-ind,], Y[,-ind], X2[ind,], lc)
         dataapportho[,ind] = p$mu[,1]
 }
 predortho = matrix(0,length(t),N2)
@@ -64,4 +64,4 @@ nb_iteration	=	nb_iteration +1
 }
 nb_optimTENCOV <- max(nb_iteration-2,1)
 
-Q2TENSVD2Foptim <-      Q2full[,nb_optimTENCOV]
+Q2valTENSVD2F <-      Q2full[,nb_optimTENCOV]
