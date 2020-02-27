@@ -5,12 +5,12 @@
 #dimension du probl?me
 dimprob = 5
 
-#Ndata = 1000
-#
-## fonction ? estimerse
-#xD = matrix(runif(Ndata*dimprob,0,1),ncol=dimprob)
-#
-#a = f(xD)
+Ndata = 1000
+
+# fonction ? estimerse
+xD = matrix(runif(Ndata*dimprob,0,1),ncol=dimprob)
+
+a = f(xD)
 
 # définition de l'information disponible
 level = 2
