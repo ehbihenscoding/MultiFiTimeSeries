@@ -10,7 +10,7 @@ nb_parametressvd = dim(coeffsvd$lourd)[1]
 cov.type<- "matern5_2"
 #presult = matrix(list(),nrow=nb_parametressvd,ncol=4,byrow = FALSE) # 4 c'est la taille de la liste predict
 presult = matrix(0,N2,N2)
-
+pcoeff = matrix(0,N2,Ndata)
 #### initialisation du paramètre d'itérarion
 i <- 1
 #### initialisation de paramètre d'erreur
@@ -21,6 +21,7 @@ while ( err > 0.8 & i<=N2) {
 
 modelmulti <- MuFicokm(formula = list(~1,~1),MuFidesign = Dsg, response = list(coeffsvd$legere[i,],coeffsvd$lourd[i,]),nlevel = level, covtype=cov.type, estim.method="LOO", control=list( trace=FALSE))
 presult[i,] <- predict( modelmulti, X2,  'UK')$mean + apply(matrix(1:N2),1,function(x) CrossValidationMuFicokmAll(modelmulti,x)$CVerrall)
+pcoeff[i,] <- predict(object = modelmulti, xD, type = 'UK')$mean
 
 err <- errorQ2(presult[i,],coeffsvd$lourd[i,])
 #print(err)
@@ -30,7 +31,7 @@ i <- i+1
 # le nombre de paramètre à utiliser est égale a l'avant dernier calculé
 nb_optim <- max(i-2,1)
 
-Q2SVD2FHFoptim  <-      errorQ2temp( fpred(presult[1:nb_optim,],basesvd[,1:nb_optim]), Z2)
+Q2valSVD2FHF	<-	errorQ2temp( fpred( pcoeff[1:nb_optim,], basesvd[,1:nb_optim]), a)
 
 ##################################################
 #################   Q2 ###########################

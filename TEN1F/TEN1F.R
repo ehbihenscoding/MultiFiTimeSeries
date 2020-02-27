@@ -11,9 +11,9 @@ lc=tempOpt$par
 # prédiction
 dataapp = matrix(0,length(t),N2)
 for (ind in 1:N2){
-        p <- predKmFonc( X, Y, X2[ind,], lc)
+        p <- predKmFonc( X, Y, xD[ind,], lc)
         dataapp[,ind] = p$mu[,1]
 }
 
-Q2TEN1F = errorQ2temp(dataapp, Z2)
+Q2valTEN1F = errorQ2temp(dataapp, a)
 
