@@ -20,7 +20,6 @@ while( err >0.8 & i<=N2){
 	presult[i,] <- leaveOneOut.km(model, 'UK')$mean #predict(object = model, data.frame(x=X2),type = 'UK')
 	err	<-	errorQ2(presult[i,],coeffs$legere[i,])
 	i	<-	i+1
-	print(err)
 }
 
 nb_opt	<-	max( i-2, 1)
