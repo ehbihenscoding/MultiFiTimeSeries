@@ -11,7 +11,7 @@ lc=tempOpt$par
 # prédiction
 dataapp = matrix(0,length(t),N2)
 for (ind in 1:N2){
-        p <- predKmFonc( X, Y, xD[ind,], lc)
+        p <- predKmFonc( X[-ind,], Y[,-ind], xD[ind,], lc)
         dataapp[,ind] = p$mu[,1]
 }
 
