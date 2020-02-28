@@ -4,7 +4,7 @@ Nt = 101
 source('example/data.R')
 
 # définition des paramètres de l'expérience
-Nb_exper = 10
+Nb_exper = 40
 # creations des matrices de Q2
 Q2SVD2FLFstat = matrix( 0, Nt, Nb_exper)
 Q2SVD2FHFstat = matrix( 0, Nt, Nb_exper)
@@ -39,9 +39,16 @@ Q2SVD2FHFmean <- apply( Q2SVD2FHFstat, 1, mean)
 Q2TENCOV2Fmean	<- apply( Q2TENCOV2Fstat, 1, mean)
 Q2SVD1Fmean	<- apply( Q2SVD1Fstat, 1, mean)
 
+Q2SVD2FLFvar <- apply( Q2SVD2FLFstat, 1, var)
+Q2SVD2FHFvar <- apply( Q2SVD2FHFstat, 1, var)
+Q2TENCOV2Fvar	<- apply( Q2TENCOV2Fstat, 1, var)
+Q2SVD1Fvar	<- apply( Q2SVD1Fstat, 1, var)
+
 #### Export
 data = data.frame( t=t, Q2SVD2FLFmean=Q2SVD2FLFmean, Q2SVD2FHFmean=Q2SVD2FHFmean, Q2SVD1Fmean=Q2SVD1Fmean, Q2TENCOV2Fmean=Q2TENCOV2Fmean)
 write.csv( data, "~/outputs/exportQ2mean.csv")
+data = data.frame( t=t, Q2SVD2FLFvar=Q2SVD2FLFvar, Q2SVD2FHFvar=Q2SVD2FHFvar, Q2SVD1Fvar=Q2SVD1Fvar, Q2TENCOV2Fvar=Q2TENCOV2Fvar)
+write.csv( data, "~/outputs/exportQ2var.csv")
 data = data.frame( t=t, Q2SVD2FLFstat=Q2SVD2FLFstat, Q2SVD2FHFstat=Q2SVD2FHFstat, Q2SVD1Fstat=Q2SVD1Fstat, Q2TENCOV2Fstat=Q2TENCOV2Fstat)
 write.csv( data, "~/outputs/exportQ2.csv")
 data = data.frame( SVD2LF = dimBaseSVD2LF, SVD2HF = dimBaseSVD2HF, TENCOV = dimBaseTENCOV)
