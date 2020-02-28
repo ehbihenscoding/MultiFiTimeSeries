@@ -11,13 +11,15 @@ cov.type<- "matern5_2"
 #presult = matrix(list(),nrow=nb_parametres,ncol=7,byrow = FALSE) # 4 c'est la taille de la liste predict
 
 presult = matrix(0,N2,N2)
+pcoeff = matrix(0,N2,Ndata)
 # Initialisation err et dim base
 i <- 1
 err <- 1
 
 while( err >0.8 & i<=N2){
 	model <- km(~1,design=data.frame(x=X2),response=data.frame(y=coeffs$legere[i,]), covtype=cov.type, control=list( trace=FALSE))
-	presult[i,] <- leaveOneOut.km(model, 'UK')$mean #predict(object = model, data.frame(x=X2),type = 'UK')
+	presult[i,] <- leaveOneOut.km(model, 'UK')$mean #
+	pcoeff[i,]	<-	predict(object = model, data.frame(x=xD),type = 'UK')$mean
 	err	<-	errorQ2(presult[i,],coeffs$legere[i,])
 	i	<-	i+1
 }
@@ -27,4 +29,4 @@ nb_opt	<-	max( i-2, 1)
 #################   Q2 ###########################
 ##################################################
 
-Q2iteration = errorQ2temp( fpred(presult[1:nb_opt,],base[,1:nb_opt]), Z2)
+Q2valSVD1F	=	errorQ2temp( fpred( pcoeff[1:nb_opt,], base[,1:nb_opt]), a)
