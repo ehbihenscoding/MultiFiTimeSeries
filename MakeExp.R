@@ -1,8 +1,16 @@
 setwd('~/Rcode/optim/')
 source('example/Import.R')
 Nt = 101
-source('example/data.R')
 
+#dimension du probl?me
+dimprob = 5
+
+# définition de l'information disponible
+level = 2
+
+# design d'expérience
+N1 <- 100
+N2 <- 10
 # définition des paramètres de l'expérience
 Nb_exper = 40
 # creations des matrices de Q2
@@ -19,7 +27,6 @@ xD = matrix(runif(Ndata*dimprob,0,1),ncol=dimprob)
 a=f(xD)
 
 for( experi in 1:Nb_exper){
-	source('example/Import.R')
 	source('example/data.R')
 	source('SVD2FLF/SVD2FLF.R')
 	Q2SVD2FLFstat[,experi] = Q2valSVD2FLF
