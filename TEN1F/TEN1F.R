@@ -9,9 +9,9 @@ tempOpt=optim(lc,fct_cout,derfct_cout,method ="Nelder-Mead")
 lc=tempOpt$par
 
 # prédiction
-dataapp = matrix(0,length(t),N2)
-for (ind in 1:N2){
-        p <- predKmFonc( X[-ind,], Y[,-ind], xD[ind,], lc)
+dataapp = matrix(0,length(t),Ndata)
+for (ind in 1:Ndata){
+        p <- predKmFonc( X, Y, xD[ind,], lc)
         dataapp[,ind] = p$mu[,1]
 }
 
