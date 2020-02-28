@@ -2,7 +2,7 @@ setwd('~/Rcode/optim/')
 source('example/Import.R')
 
 # définition des paramètres de l'expérience
-Nb_exper = 4
+Nb_exper = 100
 Nt = 101
 # creations des matrices de Q2
 Q2SVD2FLFstat = matrix( 0, Nt, Nb_exper)
@@ -36,4 +36,6 @@ Q2SVD1Fmean	<- apply( Q2SVD1Fstat, 1, mean)
 
 #### Export
 data = data.frame( t=t, Q2SVD2FLFmean=Q2SVD2FLFstat, Q2SVD2FHFmean=Q2SVD2FHFstat, Q2SVD1Fmean=Q2SVD1Fstat, Q2TENCOV2Fmean=Q2TENCOV2Fstat)
-write.csv(data, "~/outputs/exportQ2.csv")
+write.csv( data, "~/outputs/exportQ2.csv")
+data = data.frame( SVD2LF = dimBaseSVD2LF, SVD2HF = dimBaseSVD2HF, TENCOV = dimBaseTENCOV)
+write.csv( data, "~/outputs/dimBase.csv")
