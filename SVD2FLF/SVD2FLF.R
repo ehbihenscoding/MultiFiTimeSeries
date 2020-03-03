@@ -62,12 +62,12 @@ pvarortho       <- apply(fpred( coeffsvd$lourd[1:nb_optim,], basesvd[,1:nb_optim
 ##################################################
 ##### Affichage de la prediction ainsi 95 % ######
 ##################################################
-indice = 5
-x11();
-plot( t, pmean[,indice], type='l')
-lines( t, a[,indice], col=2)
-lines( t, pmean[,indice]+1.96*sqrt(varpred[,indice]+pvarortho), col=3)
-lines( t, pmean[,indice]-1.96*sqrt(varpred[,indice]+pvarortho), col=3)
+#indice = 5
+#x11();
+#plot( t, pmean[,indice], type='l')
+#lines( t, a[,indice], col=2)
+#lines( t, pmean[,indice]+1.96*sqrt(varpred[,indice]+pvarortho), col=3)
+#lines( t, pmean[,indice]-1.96*sqrt(varpred[,indice]+pvarortho), col=3)
 ##################################################
 ###################  Affichage ###################
 ##################################################

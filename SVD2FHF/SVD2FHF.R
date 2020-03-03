@@ -44,9 +44,9 @@ varpred <- fpred(pvar[1:nb_optim,],basesvd[,1:nb_optim]^2)
 ##################################################
 ##### Affichage de la prediction ainsi 95 % ######
 ##################################################
-lines( t, pmean[,indice], type='l', col=4)
-lines( t, pmean[,indice]+1.96*sqrt(varpred[,indice]), col=5)
-lines( t, pmean[,indice]-1.96*sqrt(varpred[,indice]), col=5)
+#lines( t, pmean[,indice], type='l', col=4)
+#lines( t, pmean[,indice]+1.96*sqrt(varpred[,indice]), col=5)
+#lines( t, pmean[,indice]-1.96*sqrt(varpred[,indice]), col=5)
 
 ##################################################
 #################   Q2 ###########################
