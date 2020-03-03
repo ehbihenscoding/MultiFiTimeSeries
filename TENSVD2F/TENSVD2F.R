@@ -95,7 +95,21 @@ nb_iteration	=	nb_iteration +1
 nb_optimTENCOV <- nb_iteration-2
 #### Dans le cas ou la multifidélité n'apporte rien
 if(nb_optimTENCOV == 0){
-	Q2valTENSVD2F <- Q2valsim
+	X = X2
+	Y = Z2
+	# ceci est la partie d'optilisation des hyperparamètres
+	lc=c(rep(0.2,dimprob))
+	tempOpt=optim(lc,fct_cout,derfct_cout,method ="Nelder-Mead")
+	lc=tempOpt$par
+	pred = matrix( 0, length(t), Ndata)
+	pvar = matrix( 0, length(t), Ndata)
+	for (ind in 1:Ndata){
+		p <- predKmFonc( X, Y, xD[ind,], lc)
+		pred[,ind] = p$mu[,1]
+		pvar[,ind] = p$sd
+	}
+	Q2valTENSVD2F = errorQ2temp( pred, a)
+
 } else{
 	Q2valTENSVD2F <- Q2fullval[,nb_optimTENCOV]
 }
