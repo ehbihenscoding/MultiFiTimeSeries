@@ -3,23 +3,10 @@
 setwd('~/Th�se/Travail/codage/MultifideliteTemporel/optim/')
 source('example/Import.R')
 library(bigstatsr)
+library(foreach)
 
 # définition des paramètres de l'expérience
-Nb_exper = 50
-#dimension du probl?me
-dimprob = 5
-
-# définition de l'information disponible
-level = 2
-
-# design d'expérience
-N1 <- 100
-N2 <- 10
-
-#construction de la base de validation
-Ndata = 1000
-xD = matrix( runif(Ndata*dimprob,0,1), ncol=dimprob)
-a=f(xD)
+Nb_exper = 10
 
 Nt = 101
 # Initialisation parallelisation
@@ -35,9 +22,25 @@ registerDoSEQ()
 c1 <- parallel::makeCluster(10)
 doParallel::registerDoParallel(c1)
 
-foreach( experi = 1:Nb_exper, .combine = 'c', .packages=c('DiceDesign','MuFiCokriging')) %dopar%{
+#dimension du probl?me
+dimprob = 5
+
+# définition de l'information disponible
+level = 2
+
+# design d'expérience
+N1 <- 100
+N2 <- 10
+
+#construction de la base de validation
+Ndata = 1000
+xD = matrix( runif(Ndata*dimprob,0,1), ncol=dimprob)
+a=f(xD)
+
+foreach( experi = 1:Nb_exper, .combine = 'c',
+	.export= c('N1','N2'),
+	.packages=c('DiceDesign','MuFiCokriging')) %dopar%{
 	source('example/Import.R')
-#	print(experi)
 	source('example/data.R')
 	source('SVD2FLF/SVD2FLF.R')
 	locked <- flock::lock(lock)
