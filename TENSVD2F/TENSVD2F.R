@@ -31,7 +31,7 @@ pcvari	=	matrix( 0, N2, Ndata)
 coeffs = fSVDfullmethode(Z1, Z2, N2)
 base = coefbase(Z1, coeffs$legere)
 
-while ((errnew - errold) > 10^-2 & nb_iteration<=N2){
+while ((errnew - errold) > 10^-4 & nb_iteration<=N2){
 	#nb_parametres = dim(coeffs$legere)[1]
 	Z2ortho = Z2 - fpred(coeffs$lourd[1:nb_iteration,], base[,1:nb_iteration]) #fpred(coeffinter,basefull)
 	

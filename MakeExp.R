@@ -1,6 +1,6 @@
-setwd('~/Documents/These/Code/Signaux/Decomposition/Mean/optim/')
+#setwd('~/Documents/These/Code/Signaux/Decomposition/Mean/optim/')
 #setwd('~/Rcode/optim/')
-#setwd('~/ThËse/Travail/codage/MultifideliteTemporel/optim/')
+setwd('~/ThËse/Travail/codage/MultifideliteTemporel/optim/')
 source('example/Import.R')
 
 # d√©finition des param√®tres de l'exp√©rience
