@@ -9,8 +9,9 @@ nb_parametressvd = dim(coeffsvd$lourd)[1]
 
 cov.type<- "matern5_2"
 #presult = matrix(list(),nrow=nb_parametressvd,ncol=4,byrow = FALSE) # 4 c'est la taille de la liste predict
-presult = matrix(0,N2,N2)
-
+presult	= matrix(0,N2,N2)
+pcoeff	= matrix(0,N2,Ndata)
+pvar	= matrix(0,N2,Ndata)
 #### initialisation du paramètre d'itérarion
 i <- 1
 #### initialisation de paramètre d'erreur
@@ -18,19 +19,33 @@ err <- 1
 
 ##### tant que le Q2 est important et donc qu'on apprend bien la paramètres
 while ( err > 0.8 & i<=N2) {
-
-modelmulti <- MuFicokm(formula = list(~1,~1),MuFidesign = Dsg, response = list(coeffsvd$legere[i,],coeffsvd$lourd[i,]),nlevel = level, covtype=cov.type, estim.method="LOO", control=list( trace=FALSE))
-presult[i,] <- predict( modelmulti, X2,  'UK')$mean + apply(matrix(1:N2),1,function(x) CrossValidationMuFicokmAll(modelmulti,x)$CVerrall)
-
-err <- errorQ2(presult[i,],coeffsvd$lourd[i,])
-#print(err)
-i <- i+1
+	modelmulti <- MuFicokm(formula = list(~1,~1),MuFidesign = Dsg, response = list(coeffsvd$legere[i,],coeffsvd$lourd[i,]),nlevel = level, covtype=cov.type, estim.method="LOO", control=list( trace=FALSE))
+	presult[i,] <- predict( modelmulti, X2,  'UK')$mean + apply(matrix(1:N2),1,function(x) CrossValidationMuFicokmAll(modelmulti,x)$CVerrall)
+	inter	 <- predict(object = modelmulti, xD, type = 'UK')
+	coeff[i,]	<- inter$mean
+	pvar[i,]	<- inter$sig2
+	
+	err <- errorQ2(presult[i,],coeffsvd$lourd[i,])
+	#print(err)
+	i <- i+1
 }
 
 # le nombre de paramètre à utiliser est égale a l'avant dernier calculé
 nb_optim <- max(i-2,1)
 
-Q2SVD2FHFoptim  <-      errorQ2temp( fpred(presult[1:nb_optim,],basesvd[,1:nb_optim]), Z2)
+Q2valSVD2FHF	<-	errorQ2temp( fpred( pcoeff[1:nb_optim,], basesvd[,1:nb_optim]), a)
+
+##################################################
+################  Estimation  ####################
+##################################################
+pmean <- fpred(pcoeff[1:nb_optim,],basesvd[,1:nb_optim])
+varpred <- fpred(pvar[1:nb_optim,],basesvd[,1:nb_optim]^2)
+##################################################
+##### Affichage de la prediction ainsi 95 % ######
+##################################################
+#lines( t, pmean[,indice], type='l', col=4)
+#lines( t, pmean[,indice]+1.96*sqrt(varpred[,indice]), col=5)
+#lines( t, pmean[,indice]-1.96*sqrt(varpred[,indice]), col=5)
 
 ##################################################
 #################   Q2 ###########################

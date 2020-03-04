@@ -6,6 +6,21 @@ library(bigstatsr)
 
 # définition des paramètres de l'expérience
 Nb_exper = 50
+#dimension du probl?me
+dimprob = 5
+
+# définition de l'information disponible
+level = 2
+
+# design d'expérience
+N1 <- 100
+N2 <- 10
+
+#construction de la base de validation
+Ndata = 1000
+xD = matrix( runif(Ndata*dimprob,0,1), ncol=dimprob)
+a=f(xD)
+
 Nt = 101
 # Initialisation parallelisation
 lock <- tempfile()
@@ -44,13 +59,7 @@ foreach( experi = 1:Nb_exper, .combine = 'c', .packages=c('DiceDesign','MuFiCokr
 ###### Fin Parallelisation  #######
 parallel::stopCluster(c1)
 
-Q2SVD2FLFmean <- apply( Q2SVD2FLFstat[], 1, mean)
-Q2SVD2FHFmean <- apply( Q2SVD2FHFstat[], 1, mean)
-Q2TENCOV2Fmean	<- apply( Q2TENCOV2Fstat[], 1, mean)
-Q2SVD1Fmean	<- apply( Q2SVD1Fstat[], 1, mean)
 
-#### Affichage
-x11();plot(t,Q2SVD2FHFmean,type='l',ylim=c(0.8,1))
-lines(t,Q2TENCOV2Fmean, col=2)
-lines(t,Q2SVD2FLFmean, col=3)
-lines( t, Q2SVD1Fmean, col=4)
+#### Export
+data = data.frame( t=t, Q2SVD2FLFstat=Q2SVD2FLFstat[], Q2SVD2FHFstat=Q2SVD2FHFstat[], Q2SVD1Fstat=Q2SVD1Fstat[], Q2TENCOV2Fstat=Q2TENCOV2Fstat[])
+write.csv( data, "~/outputs/exportQ2.csv")
