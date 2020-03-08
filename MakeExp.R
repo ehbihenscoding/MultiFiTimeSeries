@@ -37,9 +37,21 @@ Ndata = 1000
 xD = matrix( runif(Ndata*dimprob,0,1), ncol=dimprob)
 a=f(xD)
 
+# Parametres pour les envoyer dans chaque thread
+parall =  FBM( 5, 1)
+parall[1] = N1
+parall[2] = N2
+parall[3] = Nt
+parall[4] = level
+parall[5] = dimprob
+
 foreach( experi = 1:Nb_exper, .combine = 'c',
-	.export= c('N1','N2'),
 	.packages=c('DiceDesign','MuFiCokriging')) %dopar%{
+	N1 = parall[1]
+	N2 = parall[2]
+	Nt = parall[3]
+	level = parall[4]
+	dimprob = parall[5]
 	source('example/Import.R')
 	source('example/data.R')
 	source('SVD2FLF/SVD2FLF.R')
