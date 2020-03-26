@@ -1,10 +1,10 @@
 #setwd('~/Documents/These/Code/Signaux/Decomposition/Mean/optim/')
 #setwd('~/Rcode/optim/')
-setwd('~/Th�se/Travail/codage/MultifideliteTemporel/optim/')
+setwd('~/These/Travail/codage/MultifideliteTemporel/optim/')
 source('example/Import.R')
 
 # définition des paramètres de l'expérience
-Nb_exper = 4
+Nb_exper = 5
 Nt = 101
 # creations des matrices de Q2
 Q2SVD2FLFstat = matrix( 0, Nt, Nb_exper)
