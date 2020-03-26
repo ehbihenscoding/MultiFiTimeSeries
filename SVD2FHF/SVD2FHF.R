@@ -40,7 +40,8 @@ Q2valSVD2FHF	<-	errorQ2temp( fpred( pcoeff[1:nb_optim,], basesvd[,1:nb_optim]), 
 ################  Estimation  ####################
 ##################################################
 pmean <- fpred(pcoeff[1:nb_optim,],basesvd[,1:nb_optim])
-varpred <- fpred(pvar[1:nb_optim,],basesvd[,1:nb_optim]^2)
+# variance de la partie prédite + variance de la partie orthogonale
+varpred <- fpred(pvar[1:nb_optim,],basesvd[,1:nb_optim]^2) + var( fpred( coeffsvd$lourd[1:nb_optim,], basesvd[,1:nb_optim])- Z2)
 ##################################################
 ##### Affichage de la prediction ainsi 95 % ######
 ##################################################
