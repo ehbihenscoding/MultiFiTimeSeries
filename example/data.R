@@ -5,10 +5,17 @@
 #dimension du probl?me
 dimprob = 5
 
-Ndata = 1000
+segm = 4
+Ndata = segm^6
+xD = matrix( 0, ncol = dimprob, nrow = Ndata) # matrix(runif(Ndata*dimprob,0,1),ncol=dimprob)
+
+for (i in 1:Ndata){
+	for (j in 1:dimprob){
+		xD[i,j] = (as.integer(((i-1)/((segm+1)^(j-1)))%%4)+1) *1/(segm+1)
+	}
+}
 
 # fonction ? estimerse
-xD = matrix(runif(Ndata*dimprob,0,1),ncol=dimprob)
 
 a = f(xD)
 
