@@ -4,8 +4,7 @@
 
 #dimension du probl?me
 dimprob = 5
-
-segm = 4
+segm = 6
 Ndata = segm^6
 xD = matrix( 0, ncol = dimprob, nrow = Ndata) # matrix(runif(Ndata*dimprob,0,1),ncol=dimprob)
 
