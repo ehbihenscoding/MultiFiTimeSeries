@@ -1,6 +1,3 @@
-#setwd('~/Documents/These/Code/Signaux/Decomposition/Mean/optim/')
-#setwd('~/Rcode/optim/')
-setwd('~/These/Travail/codage/MultifideliteTemporel/optim/')
 source('example/Import.R')
 
 # définition des paramètres de l'expérience
