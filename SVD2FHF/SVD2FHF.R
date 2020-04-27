@@ -19,15 +19,16 @@ err <- 1
 
 ##### tant que le Q2 est important et donc qu'on apprend bien la paramètres
 while ( err > 0.8 & i<=N2) {
-	modelmulti <- MuFicokm(formula = list(~1,~1),MuFidesign = Dsg, response = list(coeffsvd$legere[i,],coeffsvd$lourd[i,]),nlevel = level, covtype=cov.type, estim.method="LOO", control=list( trace=FALSE))
-	presult[i,] <- predict( modelmulti, X2,  'UK')$mean + apply(matrix(1:N2),1,function(x) CrossValidationMuFicokmAll(modelmulti,x)$CVerrall)
-	inter	 <- predict(object = modelmulti, xD, type = 'UK')
-	coeff[i,]	<- inter$mean
-	pvar[i,]	<- inter$sig2
-	
-	err <- errorQ2(presult[i,],coeffsvd$lourd[i,])
-	#print(err)
-	i <- i+1
+
+modelmulti <- MuFicokm(formula = list(~1,~1),MuFidesign = Dsg, response = list(coeffsvd$legere[i,],coeffsvd$lourd[i,]),nlevel = level, covtype=cov.type, estim.method="LOO", control=list( trace=FALSE))
+presult[i,] <- predict( modelmulti, X2,  'UK')$mean + apply(matrix(1:N2),1,function(x) CrossValidationMuFicokmAll(modelmulti,x)$CVerrall)
+inter	 <- predict(object = modelmulti, xD, type = 'UK')
+pcoeff[i,]	<- inter$mean
+pvar[i,]	<- inter$sig2
+
+err <- errorQ2(presult[i,],coeffsvd$lourd[i,])
+#print(err)
+i <- i+1
 }
 
 # le nombre de paramètre à utiliser est égale a l'avant dernier calculé
@@ -39,7 +40,9 @@ Q2valSVD2FHF	<-	errorQ2temp( fpred( pcoeff[1:nb_optim,], basesvd[,1:nb_optim]), 
 ################  Estimation  ####################
 ##################################################
 pmean <- fpred(pcoeff[1:nb_optim,],basesvd[,1:nb_optim])
-varpred <- fpred(pvar[1:nb_optim,],basesvd[,1:nb_optim]^2)
+# variance de la partie pr�dite + variance de la partie orthogonale
+varortho = apply(fpred( coeffsvd$lourd[1:nb_optim,], basesvd[,1:nb_optim])-Z2,1,var)
+varpred <- fpred(pvar[1:nb_optim,],basesvd[,1:nb_optim]^2) + matrix( varortho, Nt, Ndata)
 ##################################################
 ##### Affichage de la prediction ainsi 95 % ######
 ##################################################

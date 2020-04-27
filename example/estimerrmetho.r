@@ -1,4 +1,4 @@
-setwd('~/Thèse/Travail/codage/MultifideliteTemporel/optim/')
+setwd('~/These/Travail/codage/MultifideliteTemporel/optim/')
 #setwd('~/Documents/Implementation/tempsMultifi/optim/')
 library(pracma)
 source('donnees_pendule.R')

@@ -76,3 +76,4 @@ pvarortho       <- apply(fpred( coeffsvd$lourd[1:nb_optim,], basesvd[,1:nb_optim
 #x11()
 #plot(t,Q2iteration[,1],type='l',ylim=c(min(Q2iteration),max(Q2iteration)))
 #claire(t,Q2iteration,N2)
+

@@ -1,5 +1,5 @@
 #######################################################
-# On cherche a présenter le bases autes et basse Fi ###
+# On cherche a présenter le bases haute et basse Fi ###
 #######################################################
 
 ######### Haute fidélité  #############################
