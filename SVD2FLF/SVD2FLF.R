@@ -56,8 +56,20 @@ Q2valSVD2FLF	<-	errorQ2temp( fpred( pcoeff[1:nb_optim,], basesvd[,1:nb_optim]), 
 
 ## matrice résultat de prédiction et variance
 pmean <- fpred(pcoeff[1:nb_optim,],basesvd[,1:nb_optim])
-varpred <- fpred(pvar[1:nb_optim,],basesvd[,1:nb_optim]^2)
-pvarortho       <- apply(fpred( coeffsvd$lourd[1:nb_optim,], basesvd[,1:nb_optim]) - Z2, 1, var)
+
+# calcul de la variance de la base
+gamma = meanvargamma( Z1, Z2, Nt, N1, N2)
+# on réalise plusieurs tirage de gamma
+Ntirage <- 10
+varpredtot <- array( data = 0, dim = c( Nt, Ndata, Ntirage))
+for (tirage in 1:Ntirage){
+	basetemp <- randn( Nt, nb_optim) * gamma$varbase[,1:nb_optim] + basesvd[,1:nb_optim]
+	coefftemp <- randn( nb_optim, Ndata) * pvar[1:nb_optim,] + pcoeff[1:nb_optim,]
+	varpredtot[,,tirage] <- fpred( coefftemp, basetemp)
+}
+varpred <- apply( varpredtot, c(1,2), var)
+#varpred <- fpred(pvar[1:nb_optim,],basesvd[,1:nb_optim]^2)
+#pvarortho       <- apply(fpred( coeffsvd$lourd[1:nb_optim,], basesvd[,1:nb_optim]) - Z2, 1, var)
 
 ##################################################
 ##### Affichage de la prediction ainsi 95 % ######
