@@ -113,7 +113,17 @@ if(nb_optimTENCOV == 0){
 		pvarinter[,ind] = p$sd
 	}
 	pred = predortho + fpred( pcoeff[1:nb_optimTENCOV,], base[,1:nb_optimTENCOV])
-	pvar = pvarinter + sqrt(fpred( pcvari[1:nb_optimTENCOV,], base[,1:nb_optimTENCOV]^2))
+	## Calcule de la variance
+	Ntirage <- 50
+	varpredtot <- array( data = 0, dim = c( Nt, Ndata, Ntirage))
+	for (tirage in 1:Ntirage){
+		basetemp <- randn( Nt, nb_optimTENCOV) * gamma$varbase[,1:nb_optimTENCOV] + basesvd[,1:nb_optimTENCOV]
+		coefftemp <- randn( nb_optimTENCOV, Ndata) * pvar[1:nb_optimTENCOV,] + pcoeff[1:nb_optimTENCOV,]
+		varpredtot[,,tirage] <- fpred( coefftemp, basetemp)
+	}
+	pvarSVDinter <- apply( varpredtot, c(1,2), var)	
+	#Compilation des variances
+	pvar = pvarinter + pvarSVDinter
 }
 Q2valTENSVD2F = errorQ2temp( pred, a)
 
