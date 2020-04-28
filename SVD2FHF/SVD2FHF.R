@@ -20,15 +20,15 @@ err <- 1
 ##### tant que le Q2 est important et donc qu'on apprend bien la paramètres
 while ( err > 0.8 & i<=N2) {
 
-modelmulti <- MuFicokm(formula = list(~1,~1),MuFidesign = Dsg, response = list(coeffsvd$legere[i,],coeffsvd$lourd[i,]),nlevel = level, covtype=cov.type, estim.method="LOO", control=list( trace=FALSE))
+	modelmulti <- MuFicokm(formula = list(~1,~1),MuFidesign = Dsg, response = list(coeffsvd$legere[i,],coeffsvd$lourd[i,]),nlevel = level, covtype=cov.type, estim.method="LOO", control=list( trace=FALSE))
 presult[i,] <- predict( modelmulti, X2,  'UK')$mean + apply(matrix(1:N2),1,function(x) CrossValidationMuFicokmAll(modelmulti,x)$CVerrall)
-inter	 <- predict(object = modelmulti, xD, type = 'UK')
-pcoeff[i,]	<- inter$mean
-pvar[i,]	<- inter$sig2
+	inter	 <- predict(object = modelmulti, xD, type = 'UK')
+	pcoeff[i,]	<- inter$mean
+	pvar[i,]	<- inter$sig2
 
-err <- errorQ2(presult[i,],coeffsvd$lourd[i,])
-#print(err)
-i <- i+1
+	err <- errorQ2(presult[i,],coeffsvd$lourd[i,])
+	#print(err)
+	i <- i+1
 }
 
 # le nombre de paramètre à utiliser est égale a l'avant dernier calculé
