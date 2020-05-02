@@ -11,3 +11,7 @@ lines( t, pred[,i] - 1.96*sqrt(pvar[,1]), col=1, lty=2)
 lines( t, pmean[,i], type='l', col=3)
 lines( t, pmean[,i]+1.96*sqrt(varpredHF[,i]), col=3, lty=2)
 lines( t, pmean[,i]-1.96*sqrt(varpredHF[,i]), col=3, lty=2)
+#SVD2FLF model
+lines( t, pmeanLF[,i], type='l', col=4)
+lines( t, pmeanLF[,i]+1.96*sqrt(varpred[,i]), col=4, lty=2)
+lines( t, pmeanLF[,i]-1.96*sqrt(varpred[,i]), col=4, lty=2)
