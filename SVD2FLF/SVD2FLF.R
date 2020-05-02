@@ -68,7 +68,7 @@ for (tirage in 1:Ntirage){
 	varpredtot[,,tirage] <- fpred( coefftemp, basetemp)
 }
 varpred <- apply( varpredtot, c(1,2), var)
-#varpred <- fpred(pvar[1:nb_optim,],basesvd[,1:nb_optim]^2)
+varpredalter <- fpred(pvar[1:nb_optim,],basesvd[,1:nb_optim]^2)
 #pvarortho       <- apply(fpred( coeffsvd$lourd[1:nb_optim,], basesvd[,1:nb_optim]) - Z2, 1, var)
 
 ##################################################
