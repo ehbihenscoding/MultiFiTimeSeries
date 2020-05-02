@@ -23,7 +23,7 @@ level = 2
 
 # design d'expérience
 N1 <- 100
-N2 <- 15
+N2 <- 20
 X1 <- lhsDesign(N1, dimprob) ###matrix(runif(N1*dimprob,0,1),ncol=dimprob) #fappro(DNest$PX)
 X2 <- lhsDesign(N2, dimprob) ###matrix(runif(N2*dimprob,0,1),ncol=dimprob) #f(ExtractNestDesign(DNest,2))
 #Dsg <- NestedDesignBuild(design = list(matrix(X1,ncol=dimprob),matrix(X2,ncol=dimprob)))
