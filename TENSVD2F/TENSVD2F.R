@@ -124,6 +124,7 @@ if(nb_optimTENCOV == 0){
 	pvarSVDinter <- apply( varpredtot, c(1,2), var)	
 	#Compilation des variances
 	pvar = pvarinter + pvarSVDinter
+	pvaralter = pvarinter + fpred(pvar[1:nb_optimTENCOV,],basesvd[,1:nb_optimTENCOV]^2)
 }
 Q2valTENSVD2F = errorQ2temp( pred, a)
 
