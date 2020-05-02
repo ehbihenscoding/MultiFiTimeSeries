@@ -11,21 +11,21 @@ basesvd = coefbase(Z1, coeffsvd$legere)
 
 #### type de noyau
 cov.type<- "matern5_2"
-### création des matrices de résultat!
+### crÃ©ation des matrices de rÃ©sultat!
 presult = matrix( 0, N2, N2)
 pcoeff	= matrix( 0, N2, Ndata)
 pvar	= matrix( 0, N2, Ndata)
 
-#### initialisation du paramètre d'itérarion
+#### initialisation du paramÃ©tre d'itÃ©rarion
 i <- 1
-#### initialisation de paramètre d'erreur
+#### initialisation de paramÃ©tre d'erreur
 err <- 1
 
-##### tant que le Q2 est important et donc qu'on apprend bien la paramètres
+##### tant que le Q2 est important et donc qu'on apprend bien la paramÃ¨tres
 while ( err > 0.8 & i<=N2) {
 
 modelmulti <- MuFicokm(formula = list(~1,~1),MuFidesign = Dsg, response = list(coeffsvd$legere[i,],coeffsvd$lourd[i,]),nlevel = level, covtype=cov.type, estim.method="LOO", control=list( trace=FALSE))
-# moyenne de prédication 
+# moyenne de prÃ©dication 
 presult[i,] <- coeffsvd$lourd[i,] + apply(matrix(1:N2),1,function(x) CrossValidationMuFicokmAll(modelmulti,x)$CVerrall)
 inter	<-	predict(object = modelmulti, xD, type = 'UK')#, cov.compute=FALSE, se.compute=FALSE, light.return=TRUE)
 pcoeff[i,]	<- inter$mean
@@ -35,7 +35,7 @@ err <- errorQ2(presult[i,],coeffsvd$lourd[i,])
 i <- i+1
 }
 
-# le nombre de paramètre à utiliser est égale a l'avant dernier calculé
+# le nombre de paramÃ¨tre Ã  utiliser est Ã©gale a l'avant dernier calculÃ©
 nb_optim <- max(i-2,1)
 
 Q2valSVD2FLF	<-	errorQ2temp( fpred( pcoeff[1:nb_optim,], basesvd[,1:nb_optim]), a)
@@ -51,15 +51,15 @@ Q2valSVD2FLF	<-	errorQ2temp( fpred( pcoeff[1:nb_optim,], basesvd[,1:nb_optim]), 
 #}
 
 ##################################################
-######### Prédiction moyenne et variance #########
+######### PrÃ©diction moyenne et variance ########
 ##################################################
 
-## matrice résultat de prédiction et variance
-pmean <- fpred(pcoeff[1:nb_optim,],basesvd[,1:nb_optim])
+## matrice rÃ©sultat de prÃ©diction et variance
+pmeanLF <- fpred(pcoeff[1:nb_optim,],basesvd[,1:nb_optim])
 
 # calcul de la variance de la base
 gamma = meanvargamma( Z1, Z2, Nt, N1, N2)
-# on réalise plusieurs tirage de gamma
+# on rÃ©alise plusieurs tirage de gamma
 Ntirage <- 10
 varpredtot <- array( data = 0, dim = c( Nt, Ndata, Ntirage))
 for (tirage in 1:Ntirage){
@@ -67,7 +67,7 @@ for (tirage in 1:Ntirage){
 	coefftemp <- randn( nb_optim, Ndata) * pvar[1:nb_optim,] + pcoeff[1:nb_optim,]
 	varpredtot[,,tirage] <- fpred( coefftemp, basetemp)
 }
-varpred <- apply( varpredtot, c(1,2), var)
+varpredLF <- apply( varpredtot, c(1,2), var)
 varpredalter <- fpred(pvar[1:nb_optim,],basesvd[,1:nb_optim]^2)
 #pvarortho       <- apply(fpred( coeffsvd$lourd[1:nb_optim,], basesvd[,1:nb_optim]) - Z2, 1, var)
 
