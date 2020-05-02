@@ -40,15 +40,9 @@ Q2valSVD2FHF	<-	errorQ2temp( fpred( pcoeff[1:nb_optim,], basesvd[,1:nb_optim]), 
 ################  Estimation  ####################
 ##################################################
 pmean <- fpred(pcoeff[1:nb_optim,],basesvd[,1:nb_optim])
-# variance de la partie pr�dite + variance de la partie orthogonale
+# variance de la partie prédite + variance de la partie orthogonale
 varortho = apply(fpred( coeffsvd$lourd[1:nb_optim,], basesvd[,1:nb_optim])-Z2,1,var)
 varpredHF <- fpred(pvar[1:nb_optim,],basesvd[,1:nb_optim]^2) + matrix( varortho, Nt, Ndata)
-##################################################
-##### Affichage de la prediction ainsi 95 % ######
-##################################################
-#lines( t, pmean[,indice], type='l', col=4)
-#lines( t, pmean[,indice]+1.96*sqrt(varpred[,indice]), col=5)
-#lines( t, pmean[,indice]-1.96*sqrt(varpred[,indice]), col=5)
 
 ##################################################
 #################   Q2 ###########################
@@ -68,4 +62,3 @@ varpredHF <- fpred(pvar[1:nb_optim,],basesvd[,1:nb_optim]^2) + matrix( varortho,
 #x11()
 #plot(t,Q2iteration[,1],type='l',ylim=c(min(Q2iteration),max(Q2iteration)))
 #claire(t,Q2iteration,N2)
-
