@@ -127,9 +127,3 @@ if(nb_optimTENCOV == 0){
 	pvaralter = pvarinter + fpred(pvar[1:nb_optimTENCOV,],basesvd[,1:nb_optimTENCOV]^2)
 }
 Q2valTENSVD2F = errorQ2temp( pred, a)
-
-##### Affichage
-#lines( t, pred[,indice], type='l', col=4)
-#lines( t, pred[,indice]+1.96*pvar[,indice], col=5)
-#lines( t, pred[,indice]-1.96*pvar[,indice], col=5)
-#
