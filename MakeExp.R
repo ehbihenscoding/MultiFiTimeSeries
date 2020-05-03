@@ -34,4 +34,4 @@ Q2TENCOV2Fmean	<- apply( Q2TENCOV2Fstat[], 1, mean)
 Q2SVD1Fmean	<- apply( Q2SVD1Fstat[], 1, mean)
 
 #### Affichage
-source('Plots/Q2plot')
+source('Plots/Q2plot.r')
