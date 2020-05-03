@@ -101,7 +101,7 @@ if(nb_optimTENCOV == 0){
 } else{
 	X = X2
 	Y = Z2 - fpred(coeffs$lourd[1:nb_optimTENCOV,], base[,1:nb_optimTENCOV])
-	# ceci est la partie d'optilisation des hyperparamÃ¨tres
+	# ceci est la partie d'optilisation des hyperparamètres
 	lc=c(rep(0.2,dimprob))
 	tempOpt=optim(lc,fct_cout,derfct_cout,method ="Nelder-Mead")
 	lc=tempOpt$par
@@ -112,6 +112,15 @@ if(nb_optimTENCOV == 0){
 		predortho[,ind] = p$mu[,1]
 		pvarinter[,ind] = p$sd
 	}
+#	# Calcule de la moyenne prediction formule
+#	Ntirage <- 50
+#	meanpredtot <- array( data = 0, dim = c( Nt, Ndata, Ntirage))
+#	for (tirage in 1:Ntirage){
+#		basetemp <- randn( Nt, nb_optimTENCOV) * gamma$varbase[,1:nb_optimTENCOV] + basesvd[,1:nb_optimTENCOV]
+#		meanpredtot[,,tirage] <- fpred( pcoeff[1:nb_optimTENCOV,], basetemp)
+#	}
+#	predformule <- predortho + apply( meanpredtot, c(1,2), mean)
+	# Equation dans le cas de la base parfaite moyenne prediction
 	pred = predortho + fpred( pcoeff[1:nb_optimTENCOV,], base[,1:nb_optimTENCOV])
 	## Calcule de la variance full random
 	Ntirage <- 50
