@@ -150,7 +150,7 @@ if(nb_optimTENCOV == 0){
 		basetemp <- randn( Nt, nb_optimTENCOV) * gamma$varbase[,1:nb_optimTENCOV] + gamma$base[,1:nb_optimTENCOV]
 		meanpredsqrt[,,tirage] <- fpred( pcoeff[1:nb_optimTENCOV,]^2, basetemp^2)
 	}
-	pvarformulefull <- apply( meanpredsqrt, c(1,2), mean) - apply( meanpredtot, c(1,2), mean)^2
+	pvarformulefull <- pvarinter + apply( meanpredsqrt, c(1,2), mean) - apply( meanpredtot, c(1,2), mean)^2
 
 	#Compilation des variances
 	pvar = pvarinter + pvarSVDinter
