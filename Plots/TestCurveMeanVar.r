@@ -1,5 +1,5 @@
 ##### Plot of the i-th elment of the test set
-i = 1
+#i = 1
 
 x11();  #create a new window
 plot( t, a[,i], type='l', col=2)    #true curve
