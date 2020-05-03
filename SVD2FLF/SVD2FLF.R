@@ -72,15 +72,6 @@ varpredalter <- fpred(pvar[1:nb_optim,],basesvd[,1:nb_optim]^2)
 #pvarortho       <- apply(fpred( coeffsvd$lourd[1:nb_optim,], basesvd[,1:nb_optim]) - Z2, 1, var)
 
 ##################################################
-##### Affichage de la prediction ainsi 95 % ######
-##################################################
-#indice = 5
-#x11();
-#plot( t, pmean[,indice], type='l')
-#lines( t, a[,indice], col=2)
-#lines( t, pmean[,indice]+1.96*sqrt(varpred[,indice]+pvarortho), col=3)
-#lines( t, pmean[,indice]-1.96*sqrt(varpred[,indice]+pvarortho), col=3)
-##################################################
 ###################  Affichage ###################
 ##################################################
 #x11();
