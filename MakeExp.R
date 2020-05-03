@@ -34,7 +34,4 @@ Q2TENCOV2Fmean	<- apply( Q2TENCOV2Fstat[], 1, mean)
 Q2SVD1Fmean	<- apply( Q2SVD1Fstat[], 1, mean)
 
 #### Affichage
-x11();plot(t,Q2SVD2FHFmean,type='l',ylim=c(0.8,1))
-lines(t,Q2TENCOV2Fmean, col=2)
-lines(t,Q2SVD2FLFmean, col=3)
-lines( t, Q2SVD1Fmean, col=4)
+source('Plots/Q2plot')
