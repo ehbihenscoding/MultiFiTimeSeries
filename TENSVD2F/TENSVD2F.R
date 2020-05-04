@@ -27,10 +27,13 @@ errnew = mean(errorQ2temp(dataapp, Z2)) - 0.2
 presult = matrix(0,N2,N2)
 pcoeff	=	matrix( 0, N2, Ndata)
 pcvari	=	matrix( 0, N2, Ndata)
-#######   DÃ©composition    ###########
+#######   Décomposition    ###########
 coeffs = fSVDfullmethode(Z1, Z2, N2)
 base = coefbase(Z1, coeffs$legere)
 
+# Boucle de calcule de la taille de la base
+# Tant que l'errer ne diminue pas on augmente la taille de la base
+# la boucle peut aussi être arretée par un grand nombre d'itérations
 while ((errnew - errold) > 10^-4 & nb_iteration<=N2){
 	#nb_parametres = dim(coeffs$legere)[1]
 	Z2ortho = Z2 - fpred(coeffs$lourd[1:nb_iteration,], base[,1:nb_iteration]) #fpred(coeffinter,basefull)
@@ -38,22 +41,27 @@ while ((errnew - errold) > 10^-4 & nb_iteration<=N2){
 	#####################################################
 	############### Multifi- krigeage ###################
 	#####################################################
+	# choix du noyaux
 	cov.type<- "matern5_2"
 	
+	# utilisation du la métamodélisation par Loic le Gratier
 	modelmulti <- MuFicokm(formula = list(~1,~1),MuFidesign = Dsg,
 				response = list(coeffs$legere[nb_iteration,],
 				coeffs$lourd[nb_iteration,]),nlevel = level,
 				covtype=cov.type, estim.method="LOO", control=list( trace=FALSE))
+	# prediction en LOO
 	presult[nb_iteration,] <- predict( modelmulti, X2,  'UK')$mean + apply(matrix(1:N2),1,function(x) CrossValidationMuFicokmAll(modelmulti,x)$CVerrall) 
 	interp	<- predict( modelmulti, xD, 'UK')
+	# extraction de la moyenne et la variance
 	pcoeff[nb_iteration,]	<-	interp$mean
 	pcvari[nb_iteration,]	<-	interp$sig2
-	####################################################
-	################## Reconstruction ###################
-	##################################################### 
+
+	# Reconstruction grace à la base basse fidélité
 	dataapp = fpred(presult[1:nb_iteration,],base[,1:nb_iteration])
 	
+	#####################################################
 	###################    Tensorisation   ##############
+	#####################################################
 	
 	# on utilise juste la partie orthogonale
 	X = X2
@@ -63,13 +71,16 @@ while ((errnew - errold) > 10^-4 & nb_iteration<=N2){
 	tempOpt=optim(lc,fct_cout,derfct_cout,method ="Nelder-Mead")
 	lc=tempOpt$par
 	
-	# prÃ©diction
+	# prédiction
 	dataapportho = matrix(0,length(t),N2)
+	# pour N2 elements (soit la taille du set haute fidélité)
 	for (ind in 1:N2){
 	        p <- predKmFonc( X[-ind,], Y[,-ind], X2[ind,], lc)
 	        dataapportho[,ind] = p$mu[,1]
 	}
 	
+	# on somme les deux parties pour le set
+	# d'apprentissage
 	zD = dataapp + dataapportho
 	### Q2 pour le set d'apprentissage
 	Q2full[,nb_iteration] = errorQ2temp(zD, Z2)
@@ -77,6 +88,7 @@ while ((errnew - errold) > 10^-4 & nb_iteration<=N2){
 	errold	=	errnew
 	errnew = mean(Q2full[,nb_iteration])
 	
+	# ajout d'une itétation
 	nb_iteration	=	nb_iteration +1
 }
 # dépouillement de la sortie de boucle
@@ -90,8 +102,11 @@ if(nb_optimTENCOV == 0){
 	lc=c(rep(0.2,dimprob))
 	tempOpt=optim(lc,fct_cout,derfct_cout,method ="Nelder-Mead")
 	lc=tempOpt$par
+	# creation des matrices de résultat
 	pred = matrix( 0, length(t), Ndata)
 	pvar = matrix( 0, length(t), Ndata)
+
+	# On prédit pour la base de test
 	for (ind in 1:Ndata){
 		p <- predKmFonc( X, Y, xD[ind,], lc)
 		pred[,ind] = p$mu[,1]
@@ -100,18 +115,27 @@ if(nb_optimTENCOV == 0){
 
 } else{
 	X = X2
+	# on soustrait à Z2 la partie apprise avec
+	# la base basse fidélité
 	Y = Z2 - fpred(coeffs$lourd[1:nb_optimTENCOV,], base[,1:nb_optimTENCOV])
 	# ceci est la partie d'optilisation des hyperparamètres
 	lc=c(rep(0.2,dimprob))
 	tempOpt=optim(lc,fct_cout,derfct_cout,method ="Nelder-Mead")
 	lc=tempOpt$par
+	# initialisation des sorties
 	predortho = matrix(0,length(t),Ndata)
 	pvarinter = matrix( 0, length(t), Ndata)
+	# prediction sur la base
 	for (ind in 1:Ndata){
 		p <- predKmFonc( X, Y, xD[ind,], lc)
 		predortho[,ind] = p$mu[,1]
 		pvarinter[,ind] = p$sd
 	}
+
+##################################################
+############### Partie à travailler ##############
+##################################################
+
 #	# Calcule de la moyenne prediction formule
 #	Ntirage <- 50
 #	meanpredtot <- array( data = 0, dim = c( Nt, Ndata, Ntirage))
@@ -157,4 +181,5 @@ if(nb_optimTENCOV == 0){
 	pvaralter = pvarinter + fpred(pvar[1:nb_optimTENCOV,],basesvd[,1:nb_optimTENCOV]^2)
 	pvarformula = pvarinter + pvarSVDform
 }
+# on calcule le Q2 pour la base de test
 Q2valTENSVD2F = errorQ2temp( pred, a)
