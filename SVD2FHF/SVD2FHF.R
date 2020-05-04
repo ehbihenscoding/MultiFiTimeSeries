@@ -45,16 +45,6 @@ varortho = apply(fpred( coeffsvd$lourd[1:nb_optim,], basesvd[,1:nb_optim])-Z2,1,
 varpredHF <- fpred(pvar[1:nb_optim,],basesvd[,1:nb_optim]^2) + matrix( varortho, Nt, Ndata)
 
 ##################################################
-#################   Q2 ###########################
-##################################################
-
-#Q2iteration = matrix(0,Nt,N2)
-#for (j in 2:N2){
-#dataapp = fpred(presult[1:j,],basesvd[,1:j])
-#Q2iteration[,j] = errorQ2temp(dataapp, Z2)
-#}
-
-##################################################
 ###################  Affichage ###################
 ##################################################
 #x11();
