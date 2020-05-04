@@ -158,7 +158,7 @@ if(nb_optimTENCOV == 0){
 
 
 	#### Compute of full formula variance
-	Ntirage <- 20
+	Ntirage <- 1000
 	meanpredtot <- array( data = 0, dim = c( Nt, Ndata, Ntirage))
 	meanpredsqrt <- array( data = 0, dim = c( Nt, Ndata, Ntirage))
 	for (tirage in 1:Ntirage){
