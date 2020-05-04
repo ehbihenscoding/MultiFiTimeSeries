@@ -34,4 +34,3 @@ X2 <- ExtractNestDesign(Dsg,2)
 # realisation de la fonction
 Z1 <- fappro(X1)
 Z2 <- f(X2)
-
