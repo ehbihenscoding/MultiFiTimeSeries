@@ -16,7 +16,7 @@
 
 # Strict compareason of variances
 x11();  #new window
-plot( t, apply( pvaralter, 1, mean), col=2, type='l')#,ylim=c(0,0.06))
+plot( t, apply( pvaralter, 1, mean), col=3, type='l', ylim=c(0,0.06))
 #lines( t, apply( pvar, 1, mean), col=3)
 #lines( t, apply( pvarformula, 1, mean), col=4)
-lines( t, apply( pvarformulefull, 1, mean), col=5)
+lines( t, apply( pvarformulefull, 1, mean), col=4)
