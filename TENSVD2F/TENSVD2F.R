@@ -158,13 +158,13 @@ if(nb_optimTENCOV == 0){
 
 
 	#### Compute of full formula variance
-	Ntirage <- 1000
+	Ntirage <- 100
 	meanpredtot <- array( data = 0, dim = c( Nt, Ndata, Ntirage))
 	meanpredsqrt <- array( data = 0, dim = c( Nt, Ndata, Ntirage))
 	for (tirage in 1:Ntirage){
-		basetemp <- randn( Nt, nb_optimTENCOV) * gamma$varbase[,1:nb_optimTENCOV] + gamma$base[,1:nb_optimTENCOV]
+		basetemp <- randn( Nt, nb_optimTENCOV) * gamma$varbase[,1:nb_optimTENCOV] + basesvd[,1:nb_optimTENCOV]	# + gamma$base[,1:nb_optimTENCOV]
 		meanpredtot[,,tirage] <- fpred( pcoeff[1:nb_optimTENCOV,], basetemp)
-		basetemp <- randn( Nt, nb_optimTENCOV) * gamma$varbase[,1:nb_optimTENCOV] + gamma$base[,1:nb_optimTENCOV]
+		basetemp <- randn( Nt, nb_optimTENCOV) * gamma$varbase[,1:nb_optimTENCOV] + basesvd[,1:nb_optimTENCOV]	# + gamma$base[,1:nb_optimTENCOV]
 		meanpredsqrt[,,tirage] <- fpred( pcoeff[1:nb_optimTENCOV,], basetemp)^2 + fpred( pcvari[1:nb_optimTENCOV,], basetemp^2)
 	}
 	pvarformulefull <- pvarinter + apply( meanpredsqrt, c(1,2), mean) - apply( meanpredtot, c(1,2), mean)^2
