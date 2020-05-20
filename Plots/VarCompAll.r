@@ -18,11 +18,18 @@
 x11();  #new window
 plot( t, apply( pvaralter, 1, mean), col=3, type='l', ylim=c(0,0.07))
 lines( t, apply( pvarinter, 1, mean), col=5)
-polygon( c( t, t[length(t):1]), c( apply( pvarinter, 1, mean), rep(0, Nt)),
-	col =  5, border = NA, density = 4, lty= "dashed")
-lines( t, apply(pvarinter + apply( meanpredsqrt, c(1,2), mean), 1, mean), col=6)
-polygon( c( t, t[length(t):1]), c( apply(pvarinter + apply( meanpredsqrt, c(1,2), mean), 1, mean), apply( pvarinter, 1, mean)[Nt:1]),
-	col =  6, border = NA, density = 4, lty= "dashed")
-lines( t, apply( pvarformulefull, 1, mean), col=4)
-polygon( c( t, t[length(t):1]), c( apply( pvarformulefull, 1, mean), apply(pvarinter + apply( meanpredsqrt, c(1,2), mean), 1, mean)[Nt:1]),
-	col =  4, border = NA, density = 3, lty= "dashed")
+#polygon( c( t, t[length(t):1]), c( apply( pvarinter, 1, mean), rep(0, Nt)),
+#	col =  5, border = NA, density = 4, lty= "dashed")
+#lines( t, apply(pvarinter + apply( meanpredsqrt, c(1,2), mean), 1, mean), col=6)
+#polygon( c( t, t[length(t):1]), c( apply(pvarinter + apply( meanpredsqrt, c(1,2), mean), 1, mean), apply( pvarinter, 1, mean)[Nt:1]),
+#	col =  6, border = NA, density = 4, lty= "dashed")
+#lines( t, apply( pvarformulefull, 1, mean), col=4)
+#polygon( c( t, t[length(t):1]), c( apply( pvarformulefull, 1, mean), apply(pvarinter + apply( meanpredsqrt, c(1,2), mean), 1, mean)[Nt:1]),
+#	col =  4, border = NA, density = 3, lty= "dashed")
+nb_optimTENCOV = 1
+pvar1 = fpred(pvar[1:nb_optimTENCOV,],basesvd[,1:nb_optimTENCOV]^2)
+nb_optimTENCOV = 2
+pvar2 = fpred(pvar[1:nb_optimTENCOV,],basesvd[,1:nb_optimTENCOV]^2)
+
+x11(); plot( t, apply( pvar1, 1, mean), col= 1)
+lines( t, apply( pvar2, 1, mean), col= 6)
