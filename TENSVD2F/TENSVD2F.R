@@ -146,7 +146,8 @@ tenscov2f <- function( X1inter, Z1inter, N1inter){
 		# base, pcoeff et pcvari
 	}
 	# les sorties de la fonction sont les suivantes
-	return( list( predortho=predortho, pvarinter=pvarinter, gamma=base[,1:nb_optimTENCOV], mean=pcoeff[1:nb_optimTENCOV,], var=pcvari[1:nb_optimTENCOV,]))
+	return( list( predortho=predortho, pvarinter=pvarinter, gamma=base[,1:nb_optimTENCOV],
+		mean=pcoeff[1:nb_optimTENCOV,], var=pcvari[1:nb_optimTENCOV,], nb_dim = nb_optimTENCOV))
 }
 
 # initialisation des realisations de variables aléatoires
@@ -157,15 +158,17 @@ mean = array( data = 0, dim = c( Ndata, Ndata, N1-N2))
 var = array( data = 0, dim = c( Ndata, Ndata, N1-N2))
 ### On realise plusieurs fois l'algorithm pour TENSCOV
 # ainsi on dipose de plusieurs gamma et coeffs
-for ( echanti in 1:N1-N2){
+for ( echanti in 1:(N1-N2)){
 	reech = tenscov2f( X1[-echanti,], Z1[,-echanti], N1-1)
+	nb_dim = reech$nb_dim
 	predortho[,,echanti] = reech$predortho
 	pvarinter[,,echanti] = reech$pvarinter
-	gamma[,1:nb_optimTENCOV,echanti] = reech$gamma
-	mean[1:nb_optimTENCOV,,echanti] = reech$mean
-	var[1:nb_optimTENCOV,,echanti] = reech$var
+	gamma[,1:nb_dim,echanti] = reech$gamma
+	mean[1:nb_dim,,echanti] = reech$mean
+	var[1:nb_dim,,echanti] = reech$var
 	print(echanti)
 } 
+source('TENSVD2F/ComputationVar.r', chdir = TRUE)
 
 #	# Calcule de la moyenne prediction formule
 #	Ntirage <- 50

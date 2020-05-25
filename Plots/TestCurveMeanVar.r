@@ -11,15 +11,16 @@ lines( t, pred[,i], col=1)
 	#col =  4, border = NA, density = 4, lty= "dashed")
 polygon( c( t, t[length(t):1]), c( pred[,i] + 1.96*sqrt(pvaralter[,i]), (pred[,i] - 1.96*sqrt(pvaralter[,i]))[length(pred[,i]):1]),
 	col =  3, border = NA, density = 4, lty= "dashed")
+lines( t, pmean[,i], col=5)
 lines( t, pred[,i] + 1.96*sqrt(pvaralter[,i]), col=3, lty=2)
 lines( t, pred[,i] + 1.96*sqrt(pvar[,i]), col=5, lty=2)
 lines( t, pred[,i] - 1.96*sqrt(pvaralter[,i]), col=3, lty=2)
 lines( t, pred[,i] - 1.96*sqrt(pvar[,i]), col=5, lty=2)
 
-#SVD2FHF model
-lines( t, pmeanHF[,i], type='l', col=4)
-lines( t, pmeanHF[,i]+1.96*sqrt(varpredHF[,i]), col=4, lty=2)
-lines( t, pmeanHF[,i]-1.96*sqrt(varpredHF[,i]), col=4, lty=2)
+##SVD2FHF model
+#lines( t, pmeanHF[,i], type='l', col=4)
+#lines( t, pmeanHF[,i]+1.96*sqrt(varpredHF[,i]), col=4, lty=2)
+#lines( t, pmeanHF[,i]-1.96*sqrt(varpredHF[,i]), col=4, lty=2)
 ##SVD2FLF model
 #lines( t, pmeanLF[,i], type='l', col=4)
 #lines( t, pmeanLF[,i]+1.96*sqrt(varpredLF[,i]), col=4, lty=2)

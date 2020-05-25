@@ -10,14 +10,14 @@ sumEVparinter <- array( data = 0, dim = c( Nt, Ndata, N1-N2))
 sumCovEparinter <- array( data = 0, dim = c( Nt, Ndata))
 sumCovorthointer <- array( data = 0, dim = c( Nt, Ndata))
 # boucle pour ces réaliser la moyenne et la variance
-for (tirage in 1:N1-N2){
+for (tirage in 1:(N1-N2)){
 	sumVEparinter[,,tirage] <- fpred( mean[,,tirage], gamma[,,tirage])
 	sumEVparinter[,,tirage] <- fpred( var[,,tirage], gamma[,,tirage])
     sumCovorthointer <- sumCovorthointer
         + cov( fpred( mean[,,tirage], gamma[,,tirage]), predortho[,,tirage])
 }
-for ( iindice in 1:N1-N2){
-    for ( jindice in 1:N1){
+for ( iindice in 1:(N1-N2)){
+    for ( jindice in 1:(N1-N2)){
         sumCovEparinter <-  sumCovEparinter
             + cov( fpred( mean[,,iindice], gamma[,,iindice]), fpred( mean[,,jindice], gamma[,,jindice])) 
     }
