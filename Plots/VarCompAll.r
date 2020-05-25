@@ -16,7 +16,7 @@
 
 # Strict compareason of variances
 x11();  #new window
-plot( t, apply( pvaralter, 1, mean), col=3, type='l', ylim=c(0,0.07))
+plot( t, apply( pvaralter, 1, mean), col=3, type='l', ylim=c(0,0.07), ylab='Variance')
 lines( t, apply( pvarinter, 1, mean), col=5)
 #polygon( c( t, t[length(t):1]), c( apply( pvarinter, 1, mean), rep(0, Nt)),
 #	col =  5, border = NA, density = 4, lty= "dashed")
