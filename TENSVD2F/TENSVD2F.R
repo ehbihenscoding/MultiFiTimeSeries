@@ -150,6 +150,9 @@ tenscov2f <- function( X1inter, Z1inter, N1inter){
 		mean=pcoeff[1:nb_optimTENCOV,], var=pcvari[1:nb_optimTENCOV,], nb_dim = nb_optimTENCOV))
 }
 
+### Initialisation nécessaire à cause d'une erreur de programmation
+X = X2
+Y = Z2
 # initialisation des realisations de variables aléatoires
 predortho = array( data = 0, dim = c( Nt, Ndata, N1-N2))
 pvarinter = array( data = 0, dim = c( Nt, Ndata, N1-N2))
