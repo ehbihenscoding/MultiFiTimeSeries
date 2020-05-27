@@ -169,50 +169,11 @@ for ( echanti in 1:(N1-N2)){
 	gamma[,1:nb_dim,echanti] = reech$gamma
 	mean[1:nb_dim,,echanti] = reech$mean
 	var[1:nb_dim,,echanti] = reech$var
-	print(echanti)
+#	print(echanti)
 } 
 source('TENSVD2F/ComputationVar.r', chdir = TRUE)
-
-#	# Calcule de la moyenne prediction formule
-#	Ntirage <- 50
-#	meanpredtot <- array( data = 0, dim = c( Nt, Ndata, Ntirage))
-#	for (tirage in 1:Ntirage){
-#		basetemp <- randn( Nt, nb_optimTENCOV) * gamma$varbase[,1:nb_optimTENCOV] + basesvd[,1:nb_optimTENCOV]
-#		meanpredtot[,,tirage] <- fpred( pcoeff[1:nb_optimTENCOV,], basetemp)
-#	}
-#	predformule <- predortho + apply( meanpredtot, c(1,2), mean)
-	# Equation dans le cas de la base parfaite moyenne prediction
-
-
-############### A calculer ########## !!!!!!!!!!!!!!!
-#	pred = predortho + fpred( pcoeff[1:nb_optimTENCOV,], base[,1:nb_optimTENCOV])
-
-## cette partie est complement fausse:
-#	## Calcule de la variance full random
-#	Ntirage <- 50
-#	varpredtot <- array( data = 0, dim = c( Nt, Ndata, Ntirage))
-#	for (tirage in 1:Ntirage){
-#		basetemp <- randn( Nt, nb_optimTENCOV) * gamma$varbase[,1:nb_optimTENCOV] + basesvd[,1:nb_optimTENCOV]
-#		coefftemp <- randn( nb_optimTENCOV, Ndata) * pvar[1:nb_optimTENCOV,] + pcoeff[1:nb_optimTENCOV,]
-#		varpredtot[,,tirage] <- fpred( coefftemp, basetemp)
-#	}
-#	pvarSVDinter <- apply( varpredtot, c(1,2), var)	
-#
-#	#### Compute of full formula variance
-#	Ntirage <- 100
-#	meanpredtot <- array( data = 0, dim = c( Nt, Ndata, Ntirage))
-#	meanpredsqrt <- array( data = 0, dim = c( Nt, Ndata, Ntirage))
-#	for (tirage in 1:Ntirage){
-#		basetemp <- randn( Nt, nb_optimTENCOV) * gamma$varbase[,1:nb_optimTENCOV] + basesvd[,1:nb_optimTENCOV]	# + gamma$base[,1:nb_optimTENCOV]
-#		meanpredtot[,,tirage] <- fpred( pcoeff[1:nb_optimTENCOV,], basetemp)
-#		basetemp <- randn( Nt, nb_optimTENCOV) * gamma$varbase[,1:nb_optimTENCOV] + basesvd[,1:nb_optimTENCOV]	# + gamma$base[,1:nb_optimTENCOV]
-#		meanpredsqrt[,,tirage] <- fpred( pcoeff[1:nb_optimTENCOV,], basetemp)^2 + fpred( pcvari[1:nb_optimTENCOV,], basetemp^2)
-#	}
-#	pvarformulefull <- pvarinter + apply( meanpredsqrt, c(1,2), mean) - apply( meanpredtot, c(1,2), mean)^2
-
-#### A calculer
-#	#Compilation des variances
-#	pvar = pvarinter + pvarSVDinter
-#	pvaralter = pvarinter + fpred(pcvari[1:nb_optimTENCOV,],basesvd[,1:nb_optimTENCOV]^2)
-## on calcule le Q2 pour la base de test
-#Q2valTENSVD2F = errorQ2temp( pred, a)
+reechtot = tenscov2f( X1, Z1, N1)
+pred = fpred( reechtot$mean, reechtot$gamma) + reechtot$predortho
+pvaralter = fpred( reechtot$var, reechtot$gamma^2) + reechtot$pvarinter
+Q2valTENSVD2F = errorQ2temp( pred, a)
+Q2valTENSVD2Fvar = errorQ2temp( pmean, a)
