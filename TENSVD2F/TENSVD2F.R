@@ -171,8 +171,8 @@ for ( echanti in 1:(N1-N2)){
 	var[1:nb_dim,,echanti] = reech$var
 #	print(echanti)
 } 
-source('TENSVD2F/ComputationVar.r', chdir = TRUE)
 reechtot = tenscov2f( X1, Z1, N1)
+source('TENSVD2F/ComputationVar.r', chdir = TRUE)
 pred = fpred( reechtot$mean, reechtot$gamma) + reechtot$predortho
 pvaralter = fpred( reechtot$var, reechtot$gamma^2) + reechtot$pvarinter
 Q2valTENSVD2F = errorQ2temp( pred, a)

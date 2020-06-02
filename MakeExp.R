@@ -23,7 +23,7 @@ for( experi in 1:Nb_exper){
 	dimBaseSVD2HF[experi] = nb_optim
 	source('TENSVD2F/TENSVD2F.R')
 	Q2TENCOV2Fstat[,experi] = Q2valTENSVD2F
-	dimBaseTENCOV[experi] = nb_optimTENCOV 
+	dimBaseTENCOV[experi] = reechtot$nb_dim
 	source('SVD1F/SVD1F.r')
 	Q2SVD1Fstat[,experi] = Q2valSVD1F
 }
