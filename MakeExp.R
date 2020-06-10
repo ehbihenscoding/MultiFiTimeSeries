@@ -1,7 +1,7 @@
 source('example/Import.R')
 
 # définition des paramètres de l'expérience
-Nb_exper = 2
+Nb_exper = 1
 Nt = 101
 # creations des matrices de Q2
 Q2SVD2FLFstat = matrix( 0, Nt, Nb_exper)

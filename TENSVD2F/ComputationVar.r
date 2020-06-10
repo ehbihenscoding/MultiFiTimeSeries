@@ -3,21 +3,21 @@
 
 # creation des matrices variance et moyenne
 VEortho = apply( predortho, c(1,2), var)
-EVortho = apply( pvarinter, c(1,2), var)
+EVortho = apply( pvarinter, c(1,2), mean)
 #initialisation pour les matrices necessitant des bases
-sumVEparinter <- array( data = 0, dim = c( Nt, Ndata, N1-N2))
-sumEVparinter <- array( data = 0, dim = c( Nt, Ndata, N1-N2))
+sumVEparinter <- array( data = 0, dim = c( Nt, Ndata, Nset))
+sumEVparinter <- array( data = 0, dim = c( Nt, Ndata, Nset))
 sumCovEparinter <- array( data = 0, dim = c( Nt, Ndata))
 sumCovorthointer <- array( data = 0, dim = c( Nt, Ndata))
 # boucle pour ces réaliser la moyenne et la variance
-for (tirage in 1:(N1-N2)){
+for (tirage in 1:(Nset)){
 	sumVEparinter[,,tirage] <- fpred( mean[,,tirage], gamma[,,tirage])
-	sumEVparinter[,,tirage] <- fpred( var[,,tirage], (gamma[,,tirage])^2)
+ 	sumEVparinter[,,tirage] <- fpred( var[,,tirage], (gamma[,,tirage])^2)
     sumCovorthointer <- sumCovorthointer
         + cov( fpred( mean[,,tirage], gamma[,,tirage]), reechtot$predortho)
 }
-for ( iindice in 1:(N1-N2)){
-    for ( jindice in 1:(N1-N2)){
+for ( iindice in 1:(Nset)){
+    for ( jindice in 1:(Nset)){
         sumCovEparinter <-  sumCovEparinter
             + cov( fpred( mean[,,iindice], gamma[,,iindice]), fpred( mean[,,jindice], gamma[,,jindice])) 
     }

@@ -153,16 +153,22 @@ tenscov2f <- function( X1inter, Z1inter, N1inter){
 ### Initialisation nécessaire à cause d'une erreur de programmation
 X = X2
 Y = Z2
+
+#### Nombre de sous set et taille set
+Nset = 10
+Ntailleset = 8
+
 # initialisation des realisations de variables aléatoires
-predortho = array( data = 0, dim = c( Nt, Ndata, N1-N2))
-pvarinter = array( data = 0, dim = c( Nt, Ndata, N1-N2))
-gamma = array( data = 0, dim = c( Nt, Ndata, N1-N2))
-mean = array( data = 0, dim = c( Ndata, Ndata, N1-N2))
-var = array( data = 0, dim = c( Ndata, Ndata, N1-N2))
+predortho = array( data = 0, dim = c( Nt, Ndata, Nset))
+pvarinter = array( data = 0, dim = c( Nt, Ndata, Nset))
+gamma = array( data = 0, dim = c( Nt, Ndata, Nset))
+mean = array( data = 0, dim = c( Ndata, Ndata, Nset))
+var = array( data = 0, dim = c( Ndata, Ndata, Nset))
 ### On realise plusieurs fois l'algorithm pour TENSCOV
 # ainsi on dipose de plusieurs gamma et coeffs
-for ( echanti in 1:(N1-N2)){
-	reech = tenscov2f( X1[-echanti,], Z1[,-echanti], N1-1)
+for ( echanti in 1:(Nset)){
+	remove = 1:Ntailleset + (echanti-1)*Ntailleset
+	reech = tenscov2f( X1[-remove,], Z1[,-remove], N1-Ntailleset)
 	nb_dim = reech$nb_dim
 	predortho[,,echanti] = reech$predortho
 	pvarinter[,,echanti] = reech$pvarinter
