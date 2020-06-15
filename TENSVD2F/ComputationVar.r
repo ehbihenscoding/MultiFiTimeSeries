@@ -18,8 +18,10 @@ for (tirage in 1:(Nset)){
 }
 for ( iindice in 1:(Nset)){
     for ( jindice in 1:(Nset)){
-        sumCovEparinter <-  sumCovEparinter
-            + cov( fpred( mean[,,iindice], gamma[,,iindice]), fpred( mean[,,jindice], gamma[,,jindice])) 
+        if ( iindice != jindice){
+            sumCovEparinter <-  sumCovEparinter
+                + cov( fpred( mean[,,iindice], gamma[,,iindice]), fpred( mean[,,jindice], gamma[,,jindice])) 
+        }
     }
 }
 pmeaninter <- apply( sumVEparinter, c(1,2), mean)
