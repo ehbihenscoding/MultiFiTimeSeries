@@ -7,13 +7,14 @@ Nt = 101
 Q2SVD2FLFstat = matrix( 0, Nt, Nb_exper)
 Q2SVD2FHFstat = matrix( 0, Nt, Nb_exper)
 Q2TENCOV2Fstat = matrix( 0, Nt, Nb_exper)
+Q2TENCOV2Fvars = matrix( 0, Nt, Nb_exper)
 Q2SVD1Fstat = matrix( 0, Nt, Nb_exper)
 dimBaseTENCOV = rep( 0, Nb_exper)
 dimBaseSVD2LF = rep( 0, Nb_exper)
 dimBaseSVD2HF = rep( 0, Nb_exper)
 
 for( experi in 1:Nb_exper){
-	source('example/Import.R')
+	#source('example/Import.R')
 	source('example/data.R')
 	source('SVD2FLF/SVD2FLF.R')
 	Q2SVD2FLFstat[,experi] = Q2valSVD2FLF
@@ -23,6 +24,7 @@ for( experi in 1:Nb_exper){
 	dimBaseSVD2HF[experi] = nb_optim
 	source('TENSVD2F/TENSVD2F.R')
 	Q2TENCOV2Fstat[,experi] = Q2valTENSVD2F
+	Q2TENCOV2Fvars[,experi] = Q2valTENSVD2Fvar
 	dimBaseTENCOV[experi] = reechtot$nb_dim
 	source('SVD1F/SVD1F.r')
 	Q2SVD1Fstat[,experi] = Q2valSVD1F

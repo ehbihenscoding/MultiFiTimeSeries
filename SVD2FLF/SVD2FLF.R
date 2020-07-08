@@ -14,7 +14,7 @@ cov.type<- "matern5_2"
 ### création des matrices de résultat!
 presult = matrix( 0, N2, N2)
 pcoeff	= matrix( 0, N2, Ndata)
-pvar	= matrix( 0, N2, Ndata)
+pvarLFcoeff	= matrix( 0, N2, Ndata)
 
 #### initialisation du paramétre d'itérarion
 i <- 1
@@ -29,7 +29,7 @@ modelmulti <- MuFicokm(formula = list(~1,~1),MuFidesign = Dsg, response = list(c
 presult[i,] <- coeffsvd$lourd[i,] + apply(matrix(1:N2),1,function(x) CrossValidationMuFicokmAll(modelmulti,x)$CVerrall)
 inter	<-	predict(object = modelmulti, xD, type = 'UK')#, cov.compute=FALSE, se.compute=FALSE, light.return=TRUE)
 pcoeff[i,]	<- inter$mean
-pvar[i,]	<- inter$sig2
+pvarLFcoeff[i,]	<- inter$sig2
 
 err <- errorQ2(presult[i,],coeffsvd$lourd[i,])
 i <- i+1
@@ -56,20 +56,21 @@ Q2valSVD2FLF	<-	errorQ2temp( fpred( pcoeff[1:nb_optim,], basesvd[,1:nb_optim]), 
 
 ## matrice résultat de prédiction et variance
 pmeanLF <- fpred(pcoeff[1:nb_optim,],basesvd[,1:nb_optim])
+pvarLF <- fpred(pvarLFcoeff[1:nb_optim,],basesvd[,1:nb_optim]^2)
 
-# calcul de la variance de la base
-gamma = meanvargamma( Z1, Z2, Nt, N1, N2)
-# on réalise plusieurs tirage de gamma
-Ntirage <- 10
-varpredtot <- array( data = 0, dim = c( Nt, Ndata, Ntirage))
-for (tirage in 1:Ntirage){
-	basetemp <- randn( Nt, nb_optim) * gamma$varbase[,1:nb_optim] + basesvd[,1:nb_optim]
-	coefftemp <- randn( nb_optim, Ndata) * pvar[1:nb_optim,] + pcoeff[1:nb_optim,]
-	varpredtot[,,tirage] <- fpred( coefftemp, basetemp)
-}
-varpredLF <- apply( varpredtot, c(1,2), var)
-varpredalter <- fpred(pvar[1:nb_optim,],basesvd[,1:nb_optim]^2)
-#pvarortho       <- apply(fpred( coeffsvd$lourd[1:nb_optim,], basesvd[,1:nb_optim]) - Z2, 1, var)
+## calcul de la variance de la base
+#gamma = meanvargamma( Z1, Z2, Nt, N1, N2)
+## on réalise plusieurs tirage de gamma
+#Ntirage <- 10
+#varpredtot <- array( data = 0, dim = c( Nt, Ndata, Ntirage))
+#for (tirage in 1:Ntirage){
+#	basetemp <- randn( Nt, nb_optim) * gamma$varbase[,1:nb_optim] + basesvd[,1:nb_optim]
+#	coefftemp <- randn( nb_optim, Ndata) * pvar[1:nb_optim,] + pcoeff[1:nb_optim,]
+#	varpredtot[,,tirage] <- fpred( coefftemp, basetemp)
+#}
+#varpredLF <- apply( varpredtot, c(1,2), var)
+#varpredalter <- fpred(pvar[1:nb_optim,],basesvd[,1:nb_optim]^2)
+##pvarortho       <- apply(fpred( coeffsvd$lourd[1:nb_optim,], basesvd[,1:nb_optim]) - Z2, 1, var)
 
 ##################################################
 ###################  Affichage ###################
