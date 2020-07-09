@@ -27,12 +27,13 @@ Nt	=	length(t)
 l=2
 # définition des fonctions d'étude
 fappro <- function(x){
-y=matrix(0,Nt, dim(x)[1])
-for(i in 1:dim(x)[1]){
-sys = lorenzsimpli( sigma = x[i,1], beta = x[i,2], rho = x[i,3], start = c(x[i,4],x[i,5],x[i,6]), time = t, Nt, deltat)
-y[,i]=sys$x
-}
-return(y)}
+	y=matrix(0,Nt, dim(x)[1])
+	for(i in 1:dim(x)[1]){
+		sys = lorenzsimpli( sigma = x[i,1], beta = x[i,2], rho = x[i,3], start = c(x[i,4],x[i,5],x[i,6]), time = t, Nt, deltat)
+		y[,i]=sys$x
+	}
+	return(y)}
+
 f <- function(x){
 y=matrix(0,Nt, dim(x)[1])
 for(i in 1:dim(x)[1]){
@@ -49,6 +50,7 @@ source('Fonctions/svdfunction.r', local=TRUE)
 library(optimx)
 library(cmaes)
 require(DiceDesign)
+library(pracma)
 source('Fonctions/fonctionClaire.R', local=TRUE)
 source('Fonctions/optimFunction.R', local=TRUE)
 source('Fonctions/meanvarbase.R')

@@ -2,7 +2,7 @@ source('example/Import.R')
 
 # définition des paramètres de l'expérience
 Nb_exper = 1
-Nt = 101
+#Nt = 101
 # creations des matrices de Q2
 Q2SVD2FLFstat = matrix( 0, Nt, Nb_exper)
 Q2SVD2FHFstat = matrix( 0, Nt, Nb_exper)
@@ -14,7 +14,7 @@ dimBaseSVD2LF = rep( 0, Nb_exper)
 dimBaseSVD2HF = rep( 0, Nb_exper)
 
 for( experi in 1:Nb_exper){
-	#source('example/Import.R')
+	source('example/Import.R')
 	source('example/data.R')
 	source('SVD2FLF/SVD2FLF.R')
 	Q2SVD2FLFstat[,experi] = Q2valSVD2FLF
