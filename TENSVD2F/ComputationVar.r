@@ -30,5 +30,4 @@ sumEVpar <- apply( sumEVparinter, c(1,2), mean)
 
 ## calcule de la variance et de la moyenne de prédiction
 pmean <- pmeaninter + apply( predortho, c(1,2), mean)
-pvar <- sumVEpar + sumEVpar + sumCovEparinter + 2 * sumCovorthointer
-        + EVortho + VEortho
+pvar <- sumVEpar + sumEVpar + sumCovEparinter + 2 * sumCovorthointer + EVortho + VEortho
