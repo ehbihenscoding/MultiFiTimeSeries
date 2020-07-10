@@ -1,3 +1,4 @@
+setwd('~/Submissions/temp2/')
 source('example/Import.R')
 
 # définition des paramètres de l'expérience
@@ -30,10 +31,8 @@ for( experi in 1:Nb_exper){
 	Q2SVD1Fstat[,experi] = Q2valSVD1F
 }
 
-Q2SVD2FLFmean <- apply( Q2SVD2FLFstat[], 1, mean)
-Q2SVD2FHFmean <- apply( Q2SVD2FHFstat[], 1, mean)
-Q2TENCOV2Fmean	<- apply( Q2TENCOV2Fstat[], 1, mean)
-Q2SVD1Fmean	<- apply( Q2SVD1Fstat[], 1, mean)
-
-#### Affichage
-source('Plots/Q2plot.r')
+setwd(paste('~/outputs',Nb_exper,'_',N2,'_',N1, sep = ""))
+data = data.frame( t=t, Q2SVD2FLFstat = Q2SVD2FLFstat, Q2SVD2FHFstat = Q2SVD2FHFstat, Q2SVD1Fstat = Q2SVD1Fstat, Q2TENCOV2Fstat=Q2TENCOV2Fstat, Q2TENCOV2Fvars=Q2TENCOV2Fvars)
+write.csv( data, file = "exportQ2.csv")
+data = data.frame( SVD2LF = dimBaseSVD2LF, SVD2HF = dimBaseSVD2HF, TENCOV = dimBaseTENCOV)
+write.csv( data, file = "dimBase.csv")
