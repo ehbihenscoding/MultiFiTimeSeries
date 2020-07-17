@@ -31,7 +31,7 @@ for( experi in 1:Nb_exper){
 	Q2SVD1Fstat[,experi] = Q2valSVD1F
 }
 
-setwd(paste('~/outputs',Nb_exper,'_',N2,'_',N1, sep = ""))
+setwd(paste('~/datal/outputs',Nb_exper,'_',N2,'_',N1, sep = ""))
 data = data.frame( t=t, Q2SVD2FLFstat = Q2SVD2FLFstat, Q2SVD2FHFstat = Q2SVD2FHFstat, Q2SVD1Fstat = Q2SVD1Fstat, Q2TENCOV2Fstat=Q2TENCOV2Fstat, Q2TENCOV2Fvars=Q2TENCOV2Fvars)
 write.csv( data, file = "exportQ2.csv")
 data = data.frame( SVD2LF = dimBaseSVD2LF, SVD2HF = dimBaseSVD2HF, TENCOV = dimBaseTENCOV)
