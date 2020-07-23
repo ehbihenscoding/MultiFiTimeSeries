@@ -1,3 +1,4 @@
+# This file needs to be remove
 #setwd('~/Documents/These/Code/Signaux/Decomposition/Mean/optim/')
 #setwd('~/Rcode/optim/')
 #setwd('~/Thèse/Travail/codage/MultifideliteTemporel/optim/')
