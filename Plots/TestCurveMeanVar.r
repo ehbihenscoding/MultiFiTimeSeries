@@ -27,7 +27,7 @@ lines( t, pmeanLF[,i] + 1.96*sqrt(pvarLF[,i]), col=5, lty=2)
 lines( t, pred[,i] - 1.96*sqrt(pvaralter[,i]), col=3, lty=2)
 lines( t, pmean[,i] - 1.96*sqrt(pvar[,i]), col=4, lty=2)
 lines( t, pmeanLF[,i] - 1.96*sqrt(pvarLF[,i]), col=5, lty=2)
-legend( 4, 0.7, legend=c("Real output","Only projection","Full Method Dirac","Full Method Empirical"), col=c(rgb(1,0,0),rgb(0,1,0),rgb(0,1,1),rgb(0,0,1)),
+legend( 4, 0.7, legend=c("Real output","Full Method Dirac","Only projection","Full Method Empirical"), col=c(rgb(1,0,0),rgb(0,1,0),rgb(0,1,1),rgb(0,0,1)),
 	lty=1, cex=0.8)
 
 dev.off()
