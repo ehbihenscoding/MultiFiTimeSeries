@@ -23,3 +23,11 @@ errorL2temp <- function( estimation, reference){
 	}
 	return(output)
 }
+
+varerrorL2temp <- function( estimation, reference){
+	output <- 1:dim(estimation)[1]
+	for( i in 1:dim(estimation)[1]){
+		output[i] <- var(estimation[i,]-reference[i,])
+	}
+	return(output)
+}
