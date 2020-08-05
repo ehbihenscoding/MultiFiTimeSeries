@@ -23,6 +23,7 @@ err <- 1
 
 ##### tant que le Q2 est important et donc qu'on apprend bien la paramètres
 while ( err > 0.8 & i<=N2) {
+#while ( i<=N2) { # in order to explor all dimension remove to earn time
 
 modelmulti <- MuFicokm(formula = list(~1,~1),MuFidesign = Dsg, response = list(coeffsvd$legere[i,],coeffsvd$lourd[i,]),nlevel = level, covtype=cov.type, estim.method="LOO", control=list( trace=FALSE))
 # moyenne de prédication 
@@ -43,6 +44,7 @@ Q2valSVD2FLF	<-	errorQ2temp( fpred( pcoeff[1:nb_optim,], basesvd[,1:nb_optim]), 
 ##################################################
 #################   Q2 ###########################
 ##################################################
+
 
 #Q2iteration = matrix(0,Nt,N2)
 #for (j in 2:N2){
@@ -81,3 +83,20 @@ pvarLF <- fpred(pvarLFcoeff[1:nb_optim,],basesvd[,1:nb_optim]^2)
 #plot(t,Q2iteration[,1],type='l',ylim=c(min(Q2iteration),max(Q2iteration)))
 #claire(t,Q2iteration,N2)
 
+##################################################
+############ Error depending on dimension ########
+##################################################
+#
+#errvector = matrix( 0, N2, 1)
+#varvector = matrix( 0, N2, 1)
+#for (i in 1:N2) {
+#   errvector[i]= mean(errorQ2temp( fpred( pcoeff[1:i,], basesvd[,1:i]), a))
+#   varvector[i]= mean(varerrorL2temp( fpred( pcoeff[1:i,], basesvd[,1:i]), a))
+#}
+#### Affichage
+#x11();par(mar=c(4,4,3,5));plot(errvector,pch=16,xlab="dimension",ylab="",type="o")
+#par(new=T)
+#plot(varvector,col=2,xlab="",ylab="",axe=F,pch=15,type="o")
+#mtext("Variance", side=4,col=2,line=2.5)
+#axis(4,col=2,col.axis=2)
+#mtext("Q2", side=2, col=1,line=2.5)
