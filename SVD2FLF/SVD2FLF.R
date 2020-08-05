@@ -94,9 +94,13 @@ pvarLF <- fpred(pvarLFcoeff[1:nb_optim,],basesvd[,1:nb_optim]^2)
 #   varvector[i]= mean(varerrorL2temp( fpred( pcoeff[1:i,], basesvd[,1:i]), a))
 #}
 #### Affichage
-#x11();par(mar=c(4,4,3,5));plot(errvector,pch=16,xlab="dimension",ylab="",type="o")
+##x11();
+#pdf("EvoQ2Dim.pdf")
+#par(mar=c(4,4,3,5))
+#plot(errvector,pch=16,xlab="dimension",ylab="",type="o")
 #par(new=T)
 #plot(varvector,col=2,xlab="",ylab="",axe=F,pch=15,type="o")
 #mtext("Variance", side=4,col=2,line=2.5)
 #axis(4,col=2,col.axis=2)
 #mtext("Q2", side=2, col=1,line=2.5)
+#dev.off()
