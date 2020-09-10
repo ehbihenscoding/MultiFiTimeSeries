@@ -1,4 +1,5 @@
-pdf("VarianceMean.pdf")
+#pdf("VarianceMean.pdf")
+x11();
 plot(t,apply(pvar,1,mean), type='l',col=2,ylab='variance', ylim=c(0,max(apply(pvar,1,mean))))
 lines(t,apply(pvaralter,1,mean),col=1)
 lines(t, apply(reechtot$pvarinter,1,mean),col=3)
@@ -6,4 +7,15 @@ lines(t, apply(fpred( reechtot$var, reechtot$gamma^2),1,mean),col=4)
 lines(t, apply(EVortho,1,mean),col=5)
 lines(t, apply(sumEVpar,1,mean),col=6)
 legend( 0, 0.05, legend=c("Empirical", "Dirac", "orthogonal Dirac", "base Dirac", "orthogonal Empirical", "base Empirical"), col=c(2,1,3,4,5,6), lty=1, cex=0.8)
+#dev.off()
+
+pdf("VarianceMean.pdf")
+#x11();
+plot(t,apply(pvar,1,mean), type='l',col=2,ylab='variance', ylim=c(0,max(apply(pvar,1,mean))))
+#lines(t,apply(pvaralter,1,mean),col=1)
+#lines(t, apply(reechtot$pvarinter,1,mean),col=3)
+#lines(t, apply(fpred( reechtot$var, reechtot$gamma^2),1,mean),col=4)
+lines(t, apply(EVortho,1,mean),col=5)
+lines(t, apply(sumEVpar,1,mean),col=6)
+legend( 0, 0.05, legend=c("Empirical", "orthogonal Empirical", "base Empirical"), col=c(2,5,6), lty=1, cex=0.8)
 dev.off()
