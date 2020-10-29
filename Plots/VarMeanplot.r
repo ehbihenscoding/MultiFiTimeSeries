@@ -11,11 +11,11 @@ legend( 0, 0.05, legend=c("Empirical", "Dirac", "orthogonal Dirac", "base Dirac"
 
 pdf("VarianceMean.pdf")
 #x11();
-plot(t,apply(pvar,1,mean), type='l',col=2,ylab='variance', cex.axis=1.5, cex.lab =1.5, lwd = 3, ylim=c(0,max(apply(pvar,1,mean)))) 
-legend( 0, 0.018, legend=c("Empirical", "orthogonal Empirical", "base Empirical"), lwd = 3, col=c(2,3,4), lty=1, cex=1.5)
+plot(t,apply(pvar,1,mean), type='l',col=2,ylab='variance', cex.axis=1.5, cex.lab =1.5, lwd = 3, ylim=c(0,max(apply(pvar,1,mean))), lty=1) 
+legend( 0, 0.018, legend=c("Empirical", "orthogonal Empirical", "base Empirical"), lwd = 3, col=c(2,3,4), lty=c(1,4,2), cex=1.5)
 #lines(t,apply(pvaralter,1,mean),col=1)
 #lines(t, apply(reechtot$pvarinter,1,mean),col=3)
 #lines(t, apply(fpred( reechtot$var, reechtot$gamma^2),1,mean),col=4)
-lines(t, apply(EVortho,1,mean), lwd = 3,col=3)
-lines(t, apply(sumEVpar,1,mean), lwd = 3,col=4)
+lines(t, apply(EVortho,1,mean), lwd = 3,col=3, lty=4)
+lines(t, apply(sumEVpar,1,mean), lwd = 3,col=4, lty=2)
 dev.off()
