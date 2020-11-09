@@ -4,7 +4,8 @@ Matern52<-function(distances){
 
 ### Calcule de la dérivé pour amméliorrer l'optimisaton
 Matern52der<-function(x){
-  return = (sqrt(5)+5/3*x)*exp(-sqrt(5)*x) + sqrt(5)*(1+sqrt(5)*x+5/3*x^2)*exp(-sqrt(5)*x)  # OK
+	return = -5/3 * (1 + sqrt(5)*x) * exp(-sqrt(5)*x)
+ # return = (sqrt(5)+5/3*x)*exp(-sqrt(5)*x) + sqrt(5)*(1+sqrt(5)*x+5/3*x^2)*exp(-sqrt(5)*x)  # OK
 }
 
 covMatern <- function(z,y=NULL){
