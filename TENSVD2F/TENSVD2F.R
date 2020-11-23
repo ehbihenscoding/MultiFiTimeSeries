@@ -57,6 +57,8 @@ tenscov2f <- function( X1inter, Z1inter, N1inter){
 		modelmulti <- MuFicokm(formula = list(~1,~1),MuFidesign = Dsg,
 					response = list(coeffs$legere[nb_iteration,],
 					coeffs$lourd[nb_iteration,]),nlevel = level,
+					coef.rho = list(1), coef.trend = list(0,0),	# Prior 
+					coef.var = list(0.2,0.2), coef.cov = list(c(1.5,1,2,2,0.5),c(1.5,1,2,2,0.5)), # Prior + hyperparameters
 					covtype=cov.type, estim.method="LOO", control=list( trace=FALSE))
 		# prediction en LOO
 		presult[nb_iteration,] <- predict( modelmulti, X2,  'UK')$mean
