@@ -1,0 +1,13 @@
+## Export data form the model
+data = data.frame( XL = X1)
+write.csv( data, "LowFiDataX.csv")
+data = data.frame( ZL = Z1)
+write.csv( data, "LowFiDataZ.csv")
+data = data.frame( XH = X2)
+write.csv( data, "HighFiDataX.csv")
+data = data.frame( ZH = Z2)
+write.csv( data, "HighFiDataZ.csv")
+data = data.frame( xD = xD)
+write.csv( data, "TestDataX.csv")
+data = data.frame( testdata = a, pred = pmean, sig = pvar)
+write.csv( data, "TestDataZ.csv")
