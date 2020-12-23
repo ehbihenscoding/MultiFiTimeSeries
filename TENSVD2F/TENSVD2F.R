@@ -181,7 +181,8 @@ for ( echanti in 1:(Nset)){
 } 
 reechtot = tenscov2f( X1, Z1, N1)
 source('TENSVD2F/ComputationVar.r', chdir = TRUE)
+# on realise le cas Dirac
 pred = fpred( reechtot$mean, reechtot$gamma) + reechtot$predortho
 pvaralter = fpred( reechtot$var, reechtot$gamma^2) + reechtot$pvarinter
-Q2valTENSVD2F = errorQ2temp( pred, a)
-Q2valTENSVD2Fvar = errorQ2temp( pmean, a)
+Q2valTENSVD2F = errorQ2temp( pmean, a)
+Q2valTENSVD2Fvar = errorQ2temp( pvar, a)
