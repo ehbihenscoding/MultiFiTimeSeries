@@ -1,4 +1,4 @@
-# The best   
+# Multi-fidelity surrogate modeling of time-series outputs 
 Multifidelity metamodel adapted to functional inputs and outputs for uncertainties quantification of complex models
 It exist 3 branchs: master, oneprocess and cobalt
 
