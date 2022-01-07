@@ -8,7 +8,7 @@ Pendulum in all branch (same as in https://www.sciencedirect.com/science/article
 The Lorentz system in the branch Lorentz (for more details https://en.wikipedia.org/wiki/Lorenz_system)
 
 #### Project status:
-the master branch is fully working
+the master branch is a fully working branch
 
 oneprocess is the in progress branch
 
