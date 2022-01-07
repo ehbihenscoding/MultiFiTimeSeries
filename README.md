@@ -12,4 +12,4 @@ the master branch is a fully working branch
 
 oneprocess is the in progress branch
 
-cobal is the branch for cluster computer
+cobal is the branch for cluster computer. All the figures in the article were constructed with this branch.
