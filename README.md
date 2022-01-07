@@ -2,6 +2,9 @@
 Multifidelity metamodel adapted to functional inputs and outputs for uncertainties quantification of complex models
 It exist 3 branchs: master, oneprocess and cobalt
 
+
+[![DOI](https://zenodo.org/badge/215967008.svg)](https://zenodo.org/badge/latestdoi/215967008)
+
 #### The example:
 Pendulum in all branch (same as in https://www.sciencedirect.com/science/article/pii/S0951832018311232)
 
